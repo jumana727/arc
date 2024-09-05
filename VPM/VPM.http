@@ -1,0 +1,6 @@
+@VPM_HostAddress = http://localhost:5075
+
+GET {{VPM_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
