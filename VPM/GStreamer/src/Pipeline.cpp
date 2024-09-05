@@ -1,11 +1,12 @@
 #include <map>
 #include "Pipeline.h"
 #include <string>
-#include <gst/app/gstappsink.h>
 #include <iostream>
 #include <filesystem>
 #include <unistd.h>
 #include <limits.h>
+#include <gst/rtsp/rtsp.h>
+
 //
 CMx_Pipeline::CMx_Pipeline()
 {
@@ -95,9 +96,10 @@ void CMx_Pipeline::InitPipeline(int ipipelineID, const char * rtspURL)
 	}
 
 	g_object_set(source, "location", rtspURL, nullptr);
+	g_object_set(sink, "protocols", GST_RTSP_LOWER_TRANS_TCP, nullptr);
 
 
-	std::string mediaMtxIP = "172.19.0.2";
+	std::string mediaMtxIP = "mediamtx";
 	std::string mediaMtxURL = "rtsp://"  + mediaMtxIP + ":8554/" + "live" + std::to_string(ipipelineID);
 
 	m_webrtURL = "http://"  + mediaMtxIP + ":8889/" + "live" + std::to_string(ipipelineID);
