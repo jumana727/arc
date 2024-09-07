@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: web-spa
-        image: phadkesharanmatrixcomsec/arc-webspa:2.0
-        imagePullPolicy: Always
+        image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0
+        imagePullPolicy: Never
         ports:
         - containerPort: 80
         env:

@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: authentication-api
-        image: phadkesharanmatrixcomsec/arc-authentication:5.0
-        imagePullPolicy: Always
+        image: phadkesharanmatrixcomsec/arc-authentication:hls-1.0
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
         env:

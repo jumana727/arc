@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: configuration-api
-        image: phadkesharanmatrixcomsec/arc-configuration:4.0
-        imagePullPolicy: Always
+        image: phadkesharanmatrixcomsec/arc-configuration:hls-1.0
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
         env:

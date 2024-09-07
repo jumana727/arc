@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: vpm-api
-        image: phadkesharanmatrixcomsec/arc-vpm:3.0
+        image: phadkesharanmatrixcomsec/arc-vpm:hls-1.0
         imagePullPolicy: Never
         ports:
         - containerPort: 8080

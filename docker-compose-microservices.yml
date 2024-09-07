@@ -1,22 +1,22 @@
 services:
-  gateway:
-    image: phadkesharanmatrixcomsec/arc-gateway:1.0
-    build:
-      context: .
-      dockerfile: Arc.Gateway/Dockerfile
-    ports:
-      - "5039:8080"
-    depends_on:
-      - authentication
-      - configuration
-      - vpm
-    networks:
-      - arc-network
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+  # gateway:
+  #   image: phadkesharanmatrixcomsec/arc-gateway:1.0
+  #   build:
+  #     context: .
+  #     dockerfile: Arc.Gateway/Dockerfile
+  #   ports:
+  #     - "5039:8080"
+  #   depends_on:
+  #     - authentication
+  #     - configuration
+  #     - vpm
+  #   networks:
+  #     - arc-network
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Docker
 
   authentication:
-    image: phadkesharanmatrixcomsec/arc-authentication:5.0
+    image: phadkesharanmatrixcomsec/arc-authentication:hls-1.0
     build:
       context: .
       dockerfile: Authentication.API/Dockerfile
@@ -25,10 +25,10 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_ENVIRONMENT=Production
 
   configuration:
-    image: phadkesharanmatrixcomsec/arc-configuration:4.0
+    image: phadkesharanmatrixcomsec/arc-configuration:hls-1.0
     build:
       context: . 
       dockerfile: Configuration.API/Dockerfile
@@ -37,22 +37,22 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_ENVIRONMENT=Production
 
-  # arc-webclient:
-  #   image: phadkesharanmatrixcomsec/arc-webspa:2.0
-  #   build:
-  #     context: .
-  #     dockerfile: ./ArcClient/Dockerfile
-  #   ports:
-  #     - "4200:80"
-  #   networks:
-  #     - arc-network
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Production
+  arc-webclient:
+    image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0
+    build:
+      context: .
+      dockerfile: ./ArcClient/Dockerfile
+    ports:
+      - "4200:80"
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
 
   vpm:
-    image: phadkesharanmatrixcomsec/arc-vpm:1.0
+    image: phadkesharanmatrixcomsec/arc-vpm:hls-1.0
     build:
       context: . 
       dockerfile: VPM/Dockerfile
@@ -61,7 +61,7 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_ENVIRONMENT=Production
 
 networks:
   arc-network:
