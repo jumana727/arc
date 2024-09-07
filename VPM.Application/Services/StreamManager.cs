@@ -161,7 +161,8 @@ namespace VPM.Application.Services
 
         private string GetLiveURL(int pipeLineId)
         {
-            byte[] webrtcURL = new byte[50];
+            // stream url buffer
+            byte[] webrtcURL = new byte[100];
             GStreamerWrapper.GetLiveURL(pipeLineId, webrtcURL);
             return Encoding.UTF8.GetString(webrtcURL).Trim('\0') ?? string.Empty;
         }
