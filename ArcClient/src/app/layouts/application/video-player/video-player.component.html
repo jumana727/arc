@@ -9,6 +9,21 @@
 
 <div class="video-player">
 
+  <div class="layout-selector">
+    <label for="layout" class="mx-2">Select Layout:</label>
+    <select id="layout" (change)="updateStreamFormat($event)">
+      <option value="0" selected>
+        HLS
+      </option>
+      <option value="1">
+        WebRTC
+      </option>
+    </select>
+    <button class="btn btn-dark btn-sm mx-2" (click)="toggleFullscreen()">
+      <i class="fas fa-expand"></i>
+    </button>
+  </div>
+
   <div id="message"></div>
 
   <div id="video-container" class="video-container">
@@ -26,7 +41,7 @@
       </a>
       <input class="mx-2" type="range" min="0" max="1" step="0.1" (input)="setVolume($event)" />
       <a class="mx-2" cNavLink (click)="togglePIP()">
-        
+
         <svg cIcon name="cilClone" size="lg"></svg>
       </a>
     </div>

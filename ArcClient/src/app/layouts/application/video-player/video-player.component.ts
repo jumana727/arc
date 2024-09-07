@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { IconDirective } from '@coreui/icons-angular';
 import { NavLinkDirective } from '@coreui/angular';
+declare var Hls: any;
 
 interface IceServer {
   urls: string[];
@@ -30,10 +31,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   loading: boolean = false;
   isPlaying = false;
+  isHLS: boolean = true;
   video: HTMLVideoElement = document.getElementById('video') as HTMLVideoElement;
   private deviceId!: number;
   private cameraId!: number;
   private webRTCURL: string = '';
+  private hlsURL: string = '';
   private retryPause: number = 2000;
   private message: HTMLElement = document.getElementById('message') as HTMLElement;
   private nonAdvertisedCodecs: string[] = [];
@@ -93,6 +96,30 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.stopVideoStream();
   }
 
+  updateStreamFormat(event: Event): void {
+    const selectedFormat = (event.target as HTMLSelectElement).value;
+    console.log('Selected format:', selectedFormat);
+
+    if (selectedFormat === '0') {
+      this.isHLS = true;
+      this.stopVideoStream();
+      this.startVideoStream();
+    } else if (selectedFormat === '1') {
+      this.isHLS = false;
+      this.stopVideoStream();
+      this.startVideoStream();
+    }
+  }
+
+  toggleFullscreen(): void {
+    const element = this.video;
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      element.requestFullscreen().catch((err: any) => console.error("Error trying to enable fullscreen mode:", err));
+    }
+  }
+
   startVideoStream() : void
   {
     this.video = document.getElementById('video') as HTMLVideoElement;
@@ -112,6 +139,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   stopVideoStream(): void {
     if (this.pc) {
+      this.video.srcObject = null;
       this.pc.close();
       this.pc = null;
     }
@@ -367,7 +395,56 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   };
 
   loadStream = (): void => {
-    this.requestICEServers();
+    if (this.isHLS === true)
+    {
+      this.hlsURL = this.webRTCURL.replace(':8889', '');
+      this.hlsURL = this.hlsURL.replace('mediamtx.default.svc.cluster.local', 'hls-streams');
+
+      // this.hlsURL = "http://hls-streams/matrixcamera/";
+      if (Hls.isSupported()) {
+        const hls = new Hls({
+          maxLiveSyncPlaybackRate: 1.5,
+        });
+
+        hls.on(Hls.Events.ERROR, (evt: any, data: any) => {
+          if (data.fatal) {
+            hls.destroy();
+
+            if (data.details === 'manifestIncompatibleCodecsError') {
+              this.setMessage('stream makes use of codecs which are incompatible with this browser or operative system');
+            } else if (data.response && data.response.code === 404) {
+              this.setMessage('stream not found, retrying in some seconds');
+            } else {
+              this.setMessage(data.error + ', retrying in some seconds');
+            }
+
+            setTimeout(() => this.loadStream(), this.retryPause);
+          }
+        });
+
+        hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+          hls.loadSource(this.hlsURL + 'index.m3u8');
+        });
+
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          this.setMessage('');
+          this.video.play();
+        });
+
+        hls.attachMedia(this.video);
+
+      } else if (this.video.canPlayType('application/vnd.apple.mpegurl')) {
+        fetch(this.hlsURL + 'index.m3u8')
+          .then(() => {
+            this.video.src = this.hlsURL + 'index.m3u8';
+            this.video.play();
+          });
+      }
+    }
+    else // webrtc
+    {
+      this.requestICEServers();
+    }
   }
 
   supportsNonAdvertisedCodec = (codec: string, fmtp: string | undefined): Promise<boolean> => (
@@ -587,6 +664,23 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   onTrack = (evt: RTCTrackEvent): void => {
     this.setMessage('');
     this.video.srcObject = evt.streams[0];
+
+    // this.pc?.getStats().then(stats => {
+    //   stats.forEach(report => {
+    //     console.log(report.type, report);
+    //   });
+    // });
+
+    // const mediaRecorder = new MediaRecorder(evt.streams[0]);
+
+    // mediaRecorder.ondataavailable = (event) => {
+    //   console.log('Data available:', event.data);
+    // };
+    // mediaRecorder.onerror = (err) => {
+    //   console.log('Error available:', err);
+    // };
+
+    // mediaRecorder.start(1000);
   }
 
   requestICEServers = (): void => {

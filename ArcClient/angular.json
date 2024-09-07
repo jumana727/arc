@@ -38,7 +38,9 @@
               "src/app/shared/scss/styles.scss",
                "src/assets/css/toastr.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/hls.js/dist/hls.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -98,7 +100,9 @@
               "src/styles.scss",
               "src/app/shared/scss/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/hls.js/dist/hls.min.js"
+            ]
           }
         }
       }
