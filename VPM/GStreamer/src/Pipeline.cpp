@@ -20,9 +20,11 @@ CMx_Pipeline::CMx_Pipeline()
 	//path = newpath;
 	//std::string pluginPath =  //"D:\\POC_Gstreamer\\1.0\\msvc_x86_64\\lib\\gstreamer-1.0";
 
+	// std::string rootPath = "/usr/lib";
+	std::string gioPath = "/usr/lib/x86_64-linux-gnu/gio";
 	g_setenv("GST_PLUGIN_PATH", pluginPath.c_str(), TRUE);
-
-	g_setenv("GIO_MODULE_DIR", pluginPath.c_str(), TRUE);
+	// g_setenv("GSTREAMER_1_0_ROOT_x86_64", rootPath.c_str(), TRUE);
+	g_setenv("GIO_MODULE_DIR", gioPath.c_str(), TRUE);
 
 	char level[4] = { 0 };
 
@@ -99,7 +101,7 @@ void CMx_Pipeline::InitPipeline(int ipipelineID, const char * rtspURL)
 	g_object_set(sink, "protocols", GST_RTSP_LOWER_TRANS_TCP, nullptr);
 
 
-	std::string mediaMtxIP = "mediamtx";
+	std::string mediaMtxIP = "mediamtx.default.svc.cluster.local";
 	std::string mediaMtxURL = "rtsp://"  + mediaMtxIP + ":8554/" + "live" + std::to_string(ipipelineID);
 
 	m_webrtURL = "http://"  + mediaMtxIP + ":8889/" + "live" + std::to_string(ipipelineID);
