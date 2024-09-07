@@ -12,6 +12,26 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
+    - host: hls-streams
+      http:
+        paths:
+          - path: /.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: mediamtx
+                port:
+                  number: 8888 
+    - host: webrtc-streams
+      http:
+        paths:
+          - path: /.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: mediamtx
+                port:
+                  number: 8889   
     - host: matrix.keycloak
       http:
         paths:
@@ -22,7 +42,6 @@ spec:
                 name: web-spa-service
                 port:
                   number: 80
-
           - path: /api/device/.*
             pathType: ImplementationSpecific
             backend:
@@ -44,3 +63,10 @@ spec:
                 name: authentication-api-service
                 port:
                   number: 80                    
+          - path: /api/Stream/.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: vpm-api-service
+                port:
+                  number: 80 
