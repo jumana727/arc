@@ -398,7 +398,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     if (this.isHLS === true)
     {
       this.hlsURL = this.webRTCURL.replace(':8889', '');
-      this.hlsURL = this.hlsURL.replace('mediamtx.default.svc.cluster.local', 'hls-streams');
+      this.hlsURL = this.hlsURL.replace('mediamtx.default.svc.cluster.local', 'hls-streams:4200');
 
       // this.hlsURL = "http://hls-streams/matrixcamera/";
       if (Hls.isSupported()) {
