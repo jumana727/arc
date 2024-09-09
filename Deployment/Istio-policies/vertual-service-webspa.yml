@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: web-spa
+spec:
+  hosts:
+  - web-spa
+  http:
+  - route:
+    - destination:
+        host: web-spa
+        subset: v1

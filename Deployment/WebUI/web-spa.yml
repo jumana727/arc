@@ -1,20 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-spa-deployment
+  name: web-spa-v1
+  labels:
+    app: web-spa
+    version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: web-spa
+      version: v1
   template:
     metadata:
       labels:
         app: web-spa
+        version: v1
     spec:
       containers:
       - name: web-spa
-        image: phadkesharanmatrixcomsec/arc-webspa:2.0
+        image: jumanakj/arc-webclient
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -22,10 +27,43 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Production"
 ---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-spa-v2
+  labels:
+    app: web-spa
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-spa
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: web-spa
+        version: v2
+    spec:
+      containers:
+      - name: web-spa
+        image: jumanakj/arc-webclient:3.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-spa-service
+  name: web-spa
+  labels:
+    app: web-spa
 spec:
   selector:
     app: web-spa
@@ -33,4 +71,3 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: ClusterIP

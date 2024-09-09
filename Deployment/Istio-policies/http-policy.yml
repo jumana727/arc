@@ -1,0 +1,14 @@
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: "configuration-api-viewer"
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: configuration-api
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        methods: ["GET"]

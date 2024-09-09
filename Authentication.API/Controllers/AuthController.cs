@@ -44,7 +44,7 @@ namespace Authentication.API.Controllers
                 return BadRequest(response);
         }
 
-        [Authorize]
+        // [Authorize]
         [HttpGet("validatetoken")]
         public IActionResult ValidateToken()
         {

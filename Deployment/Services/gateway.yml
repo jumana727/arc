@@ -1,0 +1,56 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: example-gateway
+spec:
+  gatewayClassName: istio
+  listeners:
+  - name: http
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: example-httproute
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:4200"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization, Content-Type"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  parentRefs:
+  - name: example-gateway
+  rules:
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/.*"
+    backendRefs:
+    - name: web-spa
+      port: 80
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/api/Device/.*"
+    backendRefs:
+    - name: configuration-api-service
+      port: 80
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/api/component/.*"
+    backendRefs:
+    - name: configuration-api-service
+      port: 80
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/api/Auth/.*"
+    backendRefs:
+    - name: authentication-api-service
+      port: 80
