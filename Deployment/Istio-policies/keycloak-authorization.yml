@@ -1,0 +1,12 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: "keycloak-jwt-auth"
+  namespace: default # Replace with your namespace
+spec:
+  selector:
+    matchLabels:
+      app:  authentication-api # Replace with your app label
+  jwtRules:
+  - issuer: "http://keycloak.default.svc.cluster.local:8080/realms/myrealm" # Replace with your Keycloak issuer URL
+    jwksUri: "http://keycloak.default.svc.cluster.local:8080/realms/myrealm/protocol/openid-connect/certs"

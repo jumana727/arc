@@ -1,0 +1,16 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: authentication-api-auth
+spec:
+  selector:
+    matchLabels:
+      app: authentication-api # Match the specific workload label
+  rules:
+  - to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/api/Auth/validatetoken"] # Specify the secure endpoint path
+    from:
+    - source:
+        requestPrincipals: ["*"] # Match the service account

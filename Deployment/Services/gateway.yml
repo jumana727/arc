@@ -2,6 +2,8 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: example-gateway
+  labels:
+    app: example-gateway
 spec:
   gatewayClassName: istio
   listeners:
@@ -31,8 +33,16 @@ spec:
         type: RegularExpression
         value: "/.*"
     backendRefs:
-    - name: web-spa
+    - group: ""
+      kind: Service
+      name: web-spa-service-v1
       port: 80
+      weight: 50
+    - group: ""
+      kind: Service
+      name: web-spa-service-v2
+      port: 80
+      weight: 50
   - matches:
     - path:
         type: RegularExpression
@@ -53,4 +63,4 @@ spec:
         value: "/api/Auth/.*"
     backendRefs:
     - name: authentication-api-service
-      port: 80
+      port: 80    
