@@ -1,3 +1,4 @@
+using Prometheus;
 using Configuration.Application;
 using Microsoft.OpenApi.Models;
 
@@ -22,6 +23,8 @@ namespace Configuration.API
             builder.Services.DependencyInject(connectionInfo);
 
             // Add controllers to the dependency injection (DI) container.
+            builder.Services.UseHttpClientMetrics(); 
+
             builder.Services.AddControllers();
 
             builder.Services.AddHttpClient();
@@ -89,7 +92,8 @@ namespace Configuration.API
 
             app.UseRouting();  // Enables routing.
             app.UseAuthorization();
-
+            app.UseMetricServer();
+            app.UseHttpMetrics();
             app.MapControllers();
         }
 

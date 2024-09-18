@@ -78,17 +78,29 @@ namespace Authentication.API
                 var authenticationConfig = builder.Configuration.GetSection("Authentication");
                 var authority = authenticationConfig.GetValue<string>("Authority");
                 var issuer = authenticationConfig.GetValue<string>("Issuer");
+                var jwksUrl = "http://keycloak.default.svc.cluster.local:8080/realms/myrealm/protocol/openid-connect/certs";
 
                 options.Authority = authority;
                 options.Audience = "*";
                 options.RequireHttpsMetadata = false;
+                options.Configuration = new Microsoft.IdentityModel.Protocols.OpenIdConnect.OpenIdConnectConfiguration
+                {
+                    Issuer = issuer,
+                    JwksUri = jwksUrl
+                };
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     ValidateAudience = true,
                     ValidAudience = "account",
                     ValidateIssuer = true,
                     ValidIssuer = issuer,
-                    ValidateLifetime = true
+                    ValidateLifetime = true,
+                    IssuerSigningKeyResolver = (token, securityToken, kid, validationParameters) =>
+                    {
+                        // Fetch the public keys from the JWKs endpoint
+                        var jwkSet = new Microsoft.IdentityModel.Tokens.JsonWebKeySet(new System.Net.Http.HttpClient().GetStringAsync(jwksUrl).Result);
+                        return jwkSet.GetSigningKeys();
+                    }
                 };
             });
             builder.Services.AddAuthorization();

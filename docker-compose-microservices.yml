@@ -15,7 +15,7 @@ services:
   #     - ASPNETCORE_ENVIRONMENT=Docker
 
   # authentication:
-  #   image: jumanakj/arc-auth:2.0
+  #   image: jumanakj/arc-auth:3.0
   #   build:
   #     context: .
   #     dockerfile: Authentication.API/Dockerfile
@@ -26,29 +26,39 @@ services:
   #   environment:
   #     - ASPNETCORE_ENVIRONMENT=Production
 
-  # configuration:
-  #   image: jumanakj/arc-configuration:1.0
-  #   build:
-  #     context: . 
-  #     dockerfile: Configuration.API/Dockerfile
-  #   ports:
-  #     - "5011:8080"
-  #   networks:
-  #     - arc-network
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Production
-
-  arc-webclient:
-    image: jumanakj/arc-webclient:3.0
+  configuration:
+    image: jumanakj/arc-configuration:1.0
     build:
-      context: .
-      dockerfile: ./ArcClient/Dockerfile
+      context: . 
+      dockerfile: Configuration.API/Dockerfile
     ports:
-      - "4200:80"
+      - "5011:8080"
     networks:
       - arc-network
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+
+  # prometheus:
+  #   image: prom/prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  #   command:
+  #     - '--config.file=/etc/prometheus/prometheus.yml'
+  #   networks:
+  #     - arc-network
+  # arc-webclient:
+  #   image: jumanakj/arc-webclient:3.0
+  #   build:
+  #     context: .
+  #     dockerfile: ./ArcClient/Dockerfile
+  #   ports:
+  #     - "4200:80"
+  #   networks:
+  #     - arc-network
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Production
 
   # vpm:
   #   image: phadkesharanmatrixcomsec/arc-vpm:1.0

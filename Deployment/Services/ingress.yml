@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: example-ingress
   annotations:
+    # kubernetes.io/ingress.class: istio
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:4200"
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, OPTIONS"
@@ -19,7 +20,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: web-spa-service
+                name: web-spa-service-v1
                 port:
                   number: 80
 

@@ -1,0 +1,143 @@
+# apiVersion:  networking.istio.io/v1
+# kind: Gateway
+# metadata:
+#   name: example-gateway
+#   labels:
+#     app: example-gateway
+# spec:
+#   selector:
+#     istio: ingressgateway
+#   servers:
+#   - port:
+#       number: 80
+#       name: http
+#       protocol: HTTP
+#     hosts:
+#     - "matrix.keycloak"
+# ---
+
+# apiVersion: networking.istio.io/v1beta1
+# kind: VirtualService
+# metadata:
+#   name: web-spa-service-v1-vs
+# spec:
+#   hosts:
+#   - "matrix.keycloak"
+#   gateways:
+#   - example-gateway
+#   http:
+#   - match:
+#     - uri:
+#         regex: "/.*"
+#     route:
+#     - destination:
+#         host: web-spa-service-v1
+#         port:
+#           number: 80
+#       weight: 50
+#     - destination:
+#         host: web-spa-service-v2
+#         port:
+#           number: 80
+#       weight: 50
+# ---
+
+# apiVersion: networking.istio.io/v1
+# kind: VirtualService
+# metadata:
+#   name: authentication-vs
+# spec:
+#   hosts:
+#   - "matrix.keycloak"
+#   gateways:
+#   - example-gateway
+#   http:
+#   - match:
+#     - uri:
+#         regex: "/api/Auth/.*"
+#     route:
+#     - destination:
+#         port:
+#           number: 80
+#         host: authentication-api-service
+
+# ---
+
+# apiVersion: networking.istio.io/v1beta1
+# kind: VirtualService
+# metadata:
+#   name: configuration-api-service-vs
+# spec:
+#   hosts:
+#   - "matrix.keycloak"
+#   gateways:
+#   - example-gateway
+#   http:
+#   - match:
+#     - uri:
+#         regex: "/api/Device/.*"
+#     route:
+#     - destination:
+#         host: configuration-api-service
+#         port:
+#           number: 80
+#   - match:
+#     - uri:
+#         regex: "/api/Component/.*"
+#     route:
+#     - destination:
+#         host: configuration-api-service
+#         port:
+#           number: 80
+
+# # ---
+# # apiVersion: gateway.networking.k8s.io/v1beta1
+# # kind: HTTPRoute
+# # metadata:
+# #   name: example-httproute
+# #   annotations:
+# #     nginx.ingress.kubernetes.io/enable-cors: "true"
+# #     nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:4200"
+# #     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, OPTIONS"
+# #     nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization, Content-Type"
+# #     nginx.ingress.kubernetes.io/use-regex: "true"
+# # spec:
+# #   parentRefs:
+# #   - name: example-gateway
+# #   rules:
+# #   - matches:
+# #     - path:
+# #         type: RegularExpression
+# #         value: "/.*"
+# #     backendRefs:
+# #     - group: ""
+# #       kind: Service
+# #       name: web-spa-service-v1
+# #       port: 80
+# #     #   weight: 50
+# #     # - group: ""
+# #     #   kind: Service
+# #     #   name: web-spa-service-v2
+# #     #   port: 80
+# #     #   weight: 50
+# #   - matches:
+# #     - path:
+# #         type: RegularExpression
+# #         value: "/api/Device/.*"
+# #     backendRefs:
+# #     - name: configuration-api-service
+# #       port: 80
+# #   - matches:
+# #     - path:
+# #         type: RegularExpression
+# #         value: "/api/Component/.*"
+# #     backendRefs:
+# #     - name: configuration-api-service
+# #       port: 80
+# #   - matches:
+# #     - path:
+# #         type: RegularExpression
+# #         value: "/api/Auth/.*"
+# #     backendRefs:
+# #     - name: authentication-api-service
+# #       port: 80    
