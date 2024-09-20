@@ -1,6 +1,4 @@
-# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
-
-version: '3.4'
+version: '3.8'
 
 services:
   configurationapi:
@@ -15,7 +13,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:
-      - ~/.vsdbg:c:\remote_debugger:rw
+      - ~/.vsdbg:/mnt/c/remote_debugger:rw
 
   authenticationapi:
     image: authenticationapi
@@ -29,4 +27,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:
-      - ~/.vsdbg:c:\remote_debugger:rw
+      - ~/.vsdbg:/mnt/c/remote_debugger:rw
+
+
+
+volumes:
+  debug_data:

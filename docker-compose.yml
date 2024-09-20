@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   postgres:
     image: postgres:15
@@ -58,43 +59,3 @@ volumes:
 networks:
   arc-network:
     driver: bridge
-
-# services:
-  
-#   postgres:
-#     image: postgres:15
-#     container_name: postgres-db
-#     environment:
-#       POSTGRES_USER: postgres
-#       POSTGRES_PASSWORD: admin
-#       POSTGRES_DB: ConfigDb
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
-#     ports:
-#       - "5432:5432"
-
-#   keycloak:
-#     container_name: keycloak
-#     image: quay.io/keycloak/keycloak:latest
-#     command: ["start-dev"]
-#     ports:
-#       - "8080:8080"
-#       - "./themes/keycloak:/opt/keycloak/themes/"
-#       - "./keycloak-email-authenticator:/opt/keycloak/providers/"
-#     environment:
-#       - KEYCLOAK_ADMIN=admin
-#       - KEYCLOAK_ADMIN_PASSWORD=admin
-#       - DB_VENDOR=postgres
-#       - DB_ADDR=postgres
-#       - DB_DATABASE=keycloak
-#       - DB_USER=keycloak_user
-#       - DB_PASSWORD=your_password
-#     networks:
-#       - arc-network
-
-# volumes:
-#   postgres_data:
-
-# networks:
-#   arc-network:
-#     driver: bridge
