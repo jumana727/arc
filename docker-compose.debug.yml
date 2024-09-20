@@ -29,7 +29,5 @@ services:
     volumes:
       - ~/.vsdbg:/mnt/c/remote_debugger:rw
 
-
-
 volumes:
   debug_data:

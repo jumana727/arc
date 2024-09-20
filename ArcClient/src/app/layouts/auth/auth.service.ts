@@ -24,7 +24,7 @@ export class AuthService {
     }
     // console.log(authToken);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
-    return this.http.get(`${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.AUTH.VALIDATE_TOKEN}`, { headers }).pipe(
+    return this.http.get(`${API_ENDPOINTS.AUTH.VALIDATE_TOKEN}`, { headers }).pipe(
       map(() => true),
       catchError((err) => {
         this.logout();
@@ -42,7 +42,7 @@ export class AuthService {
     formData.append('Password', credentials.password);
     return this.http
       .post<LoginResponse>(
-        `${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.AUTH.LOGIN}`,
+        `${API_ENDPOINTS.AUTH.LOGIN}`,
         formData
       )
       .pipe(

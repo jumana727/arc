@@ -11,7 +11,7 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
 
   configuration:
     image: phadkesharanmatrixcomsec/arc-configuration:hls-1.0
@@ -23,7 +23,7 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
 
   arc-webclient:
     image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0
@@ -35,7 +35,7 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
 
   vpm:
     image: phadkesharanmatrixcomsec/arc-vpm:hls-1.0
@@ -47,7 +47,7 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
 
 networks:
   arc-network:

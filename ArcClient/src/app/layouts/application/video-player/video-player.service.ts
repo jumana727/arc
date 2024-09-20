@@ -26,7 +26,7 @@ export class VideoPlayerService {
         rtspURL = rtspURL.replace("rtsp://", "rtsp://admin:admin@");
 
         return this.http.get<ResponseModel>(
-          `${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.GETWEBRTCURL}?rtspUrl=${encodeURIComponent(rtspURL)}`
+          `${API_ENDPOINTS.GETWEBRTCURL}?rtspUrl=${encodeURIComponent(rtspURL)}`
         );
       }),
       catchError((error) => {

@@ -13,7 +13,7 @@ interface ResponseModel {
   providedIn: 'root',
 })
 export class DeviceModuleService {
-  private baseUrl = API_ENDPOINTS.BASE_URL;
+  // private baseUrl = API_ENDPOINTS.BASE_URL;
 
   constructor(private http: HttpClient) {}
 
@@ -78,7 +78,7 @@ export class DeviceModuleService {
     }
 
     return this.http.get<ResponseModel>(
-      `${this.baseUrl}${API_ENDPOINTS.DEVICE.GET}`,
+      `${API_ENDPOINTS.DEVICE.GET}`,
       {
         params,
       }
@@ -113,20 +113,20 @@ export class DeviceModuleService {
     formData.append('Type', deviceData.Type);
 
     return this.http.post(
-      `${this.baseUrl}${API_ENDPOINTS.DEVICE.ADD}`,
+      `${API_ENDPOINTS.DEVICE.ADD}`,
       formData
     );
   }
 
   deleteDevie(deviceId: any): Observable<ResponseModel> {
     return this.http.delete<ResponseModel>(
-      `${this.baseUrl}${API_ENDPOINTS.DEVICE.DELETE}?id=${deviceId}`
+      `${API_ENDPOINTS.DEVICE.DELETE}?id=${deviceId}`
     );
   }
 
   getComponentsByDeviceId(deviceId: number): Observable<ResponseModel> {
     return this.http.get<ResponseModel>(
-      `${this.baseUrl}${API_ENDPOINTS.DEVICECOMPONENT.GETBYDEVICE}?deviceId=${deviceId}`
+      `${API_ENDPOINTS.DEVICECOMPONENT.GETBYDEVICE}?deviceId=${deviceId}`
     );
   }
 
@@ -136,7 +136,7 @@ export class DeviceModuleService {
     streamProfileId: number
   ): Observable<ResponseModel> {
     return this.http.get<ResponseModel>(
-      `${this.baseUrl}${API_ENDPOINTS.DEVICECOMPONENT.GETSTREAMPROFILEBYCOPONENT}?deviceId=${deviceId}&componentId=${componentId}&profileNo=${streamProfileId}`
+      `${API_ENDPOINTS.DEVICECOMPONENT.GETSTREAMPROFILEBYCOPONENT}?deviceId=${deviceId}&componentId=${componentId}&profileNo=${streamProfileId}`
     );
   }
 
@@ -145,21 +145,21 @@ export class DeviceModuleService {
     componentId: number
   ): Observable<ResponseModel> {
     return this.http.get<ResponseModel>(
-      `${this.baseUrl}${API_ENDPOINTS.STREAMPROFILE.GETBYCOMPONENT}?deviceId=${deviceId}&componentId=${componentId}`
+      `${API_ENDPOINTS.STREAMPROFILE.GETBYCOMPONENT}?deviceId=${deviceId}&componentId=${componentId}`
     );
   }
 
   updateStreamProfile(profile: any): Observable<ResponseModel> {
     console.log(profile);
     return this.http.post<ResponseModel>(
-      `${this.baseUrl}${API_ENDPOINTS.STREAMPROFILE.UPDATE}`,
+      `${API_ENDPOINTS.STREAMPROFILE.UPDATE}`,
       profile
     );
   }
 
   getDeviecComponentListForSideBar(): Observable<ResponseModel> {
     return this.http.get<ResponseModel>(
-      `${this.baseUrl}${API_ENDPOINTS.DEVICE.GETNAMELIST}`
+      `${API_ENDPOINTS.DEVICE.GETNAMELIST}`
     );
   }
 }

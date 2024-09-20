@@ -1,25 +1,23 @@
 export const API_ENDPOINTS = {
-    // BASE_URL: 'http://localhost:5039/api',
-    // BASE_URL: 'https://172.16.0.42:44347/api',
-    BASE_URL: 'http://matrix.keycloak:4200/api',
-    AUTH: {
-      LOGIN: '/Auth/login',
-      VALIDATE_TOKEN: '/Auth/validatetoken',
-    },
-    DEVICE: {
-      ADD: '/Device/add',
-      GET: '/Device/get',
-      UPDATE: '/Device/update',
-      DELETE: '/Device/delete',
-      GETNAMELIST: '/Device/devicecomponent',
-    },
-    DEVICECOMPONENT: {
-      GETBYDEVICE: '/Component/get/byDevice',
-      GETSTREAMPROFILEBYCOPONENT: '/Component/getStreamProfile/byComponent'
-    },
-    STREAMPROFILE: {
-      GETBYCOMPONENT: '/Component/getStreamProfiles/byComponent',
-      UPDATE: '/Component/addUpdateStreamProfile',
-    },
-    GETWEBRTCURL : '/Stream/getstreamurl',
-  };
+  // BASE_URL: 'http://matrix.keycloak:4200/api', // Base URL for the web client
+  AUTH: {
+      LOGIN: 'http://localhost:5174/api/Auth/login', // Authentication service
+      VALIDATE_TOKEN: 'http://localhost:5174/api/Auth/validatetoken',
+  },
+  DEVICE: {
+      ADD: 'http://localhost:5011/api/Device/add', // Device service
+      GET: 'http://localhost:5011/api/Device/get',
+      UPDATE: 'http://localhost:5011/api/Device/update',
+      DELETE: 'http://localhost:5011/api/Device/delete',
+      GETNAMELIST: 'http://localhost:5011/api/Device/devicecomponent',
+  },
+  DEVICECOMPONENT: {
+      GETBYDEVICE: 'http://localhost:5011/api/Component/get/byDevice',
+      GETSTREAMPROFILEBYCOPONENT: 'http://localhost:5011/api/Component/getStreamProfile/byComponent',
+  },
+  STREAMPROFILE: {
+      GETBYCOMPONENT: 'http://localhost:5011/api/Component/getStreamProfiles/byComponent',
+      UPDATE: 'http://localhost:5011/api/Component/addUpdateStreamProfile',
+  },
+  GETWEBRTCURL: 'http://localhost:5011/api/Stream/getstreamurl',
+};

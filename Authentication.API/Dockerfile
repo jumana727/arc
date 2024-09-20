@@ -29,6 +29,8 @@ RUN dotnet publish "Authentication.API.csproj" -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
+# Copy the appsettings.Docker.json
+COPY ["Authentication.API/appsettings.Docker.json", "./appsettings.json"]
 
 # Expose the port the Authentication.API runs on
 EXPOSE 8080
