@@ -1,0 +1,137 @@
+version: '3.8'
+
+services:
+  gateway:
+    image: arc-gateway:1.0
+    ports:
+      - "5039:8080"
+    depends_on:
+      - authentication
+      - configuration
+      - vpm
+    networks:
+      - arc-network
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+
+  authentication:
+    image: arc-authentication:hls-1.0
+    ports:
+      - "5174:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - arc-network
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 3
+
+  configuration:
+    image: arc-configuration:hls-1.0
+    ports:
+      - "5011:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - arc-network
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+ #   healthcheck:
+ #     test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+ #     interval: 30s
+ #     timeout: 10s
+ #     retries: 3
+
+  arc-webclient:
+    image: arc-webspa:hls-1.0
+    ports:
+      - "4200:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - arc-network
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+ #   healthcheck:
+ #     test: ["CMD", "curl", "-f", "http://localhost:80"]
+ #     interval: 30s
+ #     timeout: 10s
+ #     retries: 3
+
+  vpm:
+    image: arc-vpm:hls-1.0
+    ports:
+      - "5075:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - arc-network
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+ #   healthcheck:
+ #     test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+ #     interval: 30s
+ #     timeout: 10s
+ #     retries: 3
+networks:
+  arc-network:
+    external: true
