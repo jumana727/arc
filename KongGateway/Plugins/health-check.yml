@@ -1,0 +1,11 @@
+apiVersion: configuration.konghq.com/v1beta1
+kind: KongUpstreamPolicy
+metadata:
+    name: demo-health-checking
+spec:
+  healthchecks:
+    passive:
+      healthy:
+        successes: 3
+      unhealthy:
+        httpFailures: 3

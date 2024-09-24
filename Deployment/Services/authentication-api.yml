@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: authentication-api
-        image: phadkesharanmatrixcomsec/arc-authentication:5.0
+        image: jumanakj/arc-auth-kong
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

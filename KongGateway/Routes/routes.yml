@@ -1,0 +1,40 @@
+apiVersion: gateway.networking.k8s.io/v1 
+kind: HTTPRoute
+metadata:
+  name: config-api-routes
+spec:
+  parentRefs:
+  - name: kong
+  rules:
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/.*"
+    backendRefs:
+    - name: web-spa-service
+      kind: Service
+      port: 80
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/api/Device/.*"
+    backendRefs:
+    - name: configuration-api
+      kind: Service                                                                            
+      port: 8080
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/api/Component/.*"
+    backendRefs:
+    - name: configuration-api
+      port: 8080
+  - matches:
+    - path:
+        type: RegularExpression
+        value: "/api/Auth/.*"
+    backendRefs:
+    - name: authentication-api-service
+      kind: Service
+      port: 80
+

@@ -1,0 +1,10 @@
+apiVersion: configuration.konghq.com/v1beta1
+kind: KongUpstreamPolicy
+metadata:
+  name: sample-customization
+spec:
+  algorithm: consistent-hashing
+  hashOn:
+    header: x-lb
+  hashOnFallback:
+    input: ip

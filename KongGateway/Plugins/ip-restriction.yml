@@ -1,0 +1,9 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: ip-restriction-example
+plugin: ip-restriction
+config:
+  deny:
+  - 127.0.0.1
+  message: "sorry you are not allowed to make request!!"               

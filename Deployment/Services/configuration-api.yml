@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: configuration-api-deployment
+  name: configuration-api
+  labels:
+    app: configuration-api
 spec:
   replicas: 1
   selector:
@@ -14,7 +16,7 @@ spec:
     spec:
       containers:
       - name: configuration-api
-        image: phadkesharanmatrixcomsec/arc-configuration:4.0
+        image: jumanakj/arc-configuration:1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -25,13 +27,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: configuration-api-service
+  name: configuration-api
+  labels:
+    app: configuration-api
 spec:
   selector:
     app: configuration-api
   ports:
     - protocol: TCP
-      port: 80
+      port: 8080
       targetPort: 8080
   type: ClusterIP
-
