@@ -17,3 +17,10 @@ spec:
   - name: proxy
     port: 80
     protocol: HTTP
+  - name: proxy-https
+    port: 443
+    protocol: HTTPS
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - name: kong-tls-secret

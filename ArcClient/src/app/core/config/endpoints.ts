@@ -1,5 +1,5 @@
 export const API_ENDPOINTS = {
-    BASE_URL: 'http://localhost:5039/api',
+    BASE_URL: 'https://matrixcomsec.com/api',
     // BASE_URL: 'https://172.16.0.42:44347/api',
     AUTH: {
       LOGIN: '/Auth/login',

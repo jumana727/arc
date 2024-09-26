@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: example-gateway
+spec:
+  gatewayClassName: kong 
+  listeners:
+  - name: https
+    port: 443
+    protocol: HTTPS
+    hostname: "www.matrixcomsec.com"
+    tls:
+      mode: Terminate
+      certificateRefs:
+        - kind: Secret
+          name: secret-tls
