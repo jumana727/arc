@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: authentication-api
-        image: jumanakj/arc-auth-kong
-        imagePullPolicy: Always
+        image: jumanakj/arc-auth-kong:1.0
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
         env:

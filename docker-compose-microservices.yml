@@ -16,7 +16,7 @@ services:
   #     - ASPNETCORE_ENVIRONMENT=Docker
 
   authentication:
-    image: jumanakj/arc-auth-kong
+    image: jumanakj/arc-auth-kong:1.0
     build:
       context: .
       dockerfile: Authentication.API/Dockerfile
@@ -27,20 +27,20 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
-  # configuration:
-  #   image: phadkesharanmatrixcomsec/arc-configuration:4.0
-  #   build:
-  #     context: . 
-  #     dockerfile: Configuration.API/Dockerfile
-  #   ports:
-  #     - "5011:8080"
-  #   networks:
-  #     - arc-network
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Docker
+  configuration:
+    image: jumanakj/arc-configuration:1.0
+    build:
+      context: . 
+      dockerfile: Configuration.API/Dockerfile
+    ports:
+      - "5011:8080"
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
 
   arc-webclient:
-    image: jumanakj/arc-webspa-kong
+    image: jumanakj/arc-webspa-kong:1.0
     build:
       context: .
       dockerfile: ./ArcClient/Dockerfile

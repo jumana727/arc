@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: web-spa
-        image: jumanakj/arc-webspa-kong
-        imagePullPolicy: Always
+        image: jumanakj/arc-webspa-kong:1.0
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         env:
