@@ -4,6 +4,7 @@ metadata:
   name: configuration-api
   labels:
     app: configuration-api
+
 spec:
   replicas: 1
   selector:
@@ -30,6 +31,11 @@ metadata:
   name: configuration-api
   labels:
     app: configuration-api
+  annotations: 
+    # konghq.com/plugins: "ip-restriction-example"
+    konghq.com/plugins: "jwt-example"
+    # konghq.com/plugins: "rate-limit-5-min"
+    # konghq.com/plugins: "proxy-cache-all-endpoints"
 spec:
   selector:
     app: configuration-api

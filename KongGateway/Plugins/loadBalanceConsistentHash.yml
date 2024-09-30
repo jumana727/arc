@@ -5,6 +5,6 @@ metadata:
 spec:
   algorithm: consistent-hashing
   hashOn:
-    header: x-lb
+    header: userid
   hashOnFallback:
     input: ip

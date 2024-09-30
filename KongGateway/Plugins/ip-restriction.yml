@@ -5,5 +5,5 @@ metadata:
 plugin: ip-restriction
 config:
   deny:
-  - 127.0.0.1
-  message: "sorry you are not allowed to make request!!"               
+    - 0.0.0.0/0
+  message: "Access denied: all IPs are restricted from making requests!"               
