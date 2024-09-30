@@ -1,19 +1,19 @@
 services:
-  # gateway:
-  #   image: phadkesharanmatrixcomsec/arc-gateway:1.0
-  #   build:
-  #     context: .
-  #     dockerfile: Arc.Gateway/Dockerfile
-  #   ports:
-  #     - "5039:8080"
-  #   depends_on:
-  #     - authentication
-  #     - configuration
-  #     - vpm
-  #   networks:
-  #     - arc-network
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Docker
+  gateway:
+    image: phadkesharanmatrixcomsec/arc-gateway:1.0
+    build:
+      context: .
+      dockerfile: Arc.Gateway/Dockerfile
+    ports:
+      - "5039:8080"
+    depends_on:
+      - authentication
+      - configuration
+      - vpm
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
 
   authentication:
     image: phadkesharanmatrixcomsec/arc-authentication:hls-1.0
