@@ -4,6 +4,9 @@ FROM node:18 AS build
 # Set working directory
 WORKDIR /app
 
+# Skip Downloading electron binaries
+ENV ELECTRON_SKIP_BINARY_DOWNLOAD=1
+
 # Copy package.json and package-lock.json
 COPY ArcClient/package*.json ./
 
