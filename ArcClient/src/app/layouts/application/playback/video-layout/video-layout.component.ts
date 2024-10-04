@@ -129,7 +129,7 @@ export class VideoLayoutComponent implements AfterViewInit, OnDestroy {
           if (deviceId && cameraId) {
             this.deviceId = +deviceId;
             this.cameraId = +cameraId;
-            this.initializeHLS('http://localhost:4200/assets/hls/recording1/output.m3u8');
+            this.initializeHLS('https://localhost/assets/hls/recording1/output.m3u8');
             this.videoElement.nativeElement.controls = true;
           } else {
             console.error('Failed to retrieve deviceId or cameraId');
