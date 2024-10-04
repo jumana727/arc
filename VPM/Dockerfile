@@ -54,6 +54,8 @@ RUN update-ca-certificates
 
 WORKDIR /src
 
+RUN mkdir /src/lib
+
 COPY VPM/GStreamer/src/ .
 
 RUN g++ -fPIC -shared -o /src/lib/libstreaming.so Streaming_api.cpp Pipeline.cpp -std=c++11 $(pkg-config --cflags --libs gstreamer-1.0)
