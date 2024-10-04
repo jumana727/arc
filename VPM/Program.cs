@@ -1,6 +1,6 @@
 using Microsoft.OpenApi.Models;
 using VPM.Application;
-namespace Authentication.API
+using Logging.Core;
 namespace VPM
 {
 
