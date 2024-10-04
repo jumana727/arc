@@ -44,7 +44,7 @@ RUN apt-get update && apt-get install -y libgstreamer1.0-dev \
 # Install g++ and clean up to reduce image size
 RUN apt-get install -y g++ \
     ca-certificates \
-    wget && \
+    wget
     # apt-get clean && \
     # rm -rf /var/lib/apt/lists/*
 
@@ -56,46 +56,49 @@ RUN update-ca-certificates
 WORKDIR /src
 
 COPY VPM/GStreamer/src/ .
+COPY VPM/GStreamer/spdlog/ ./spdlog
 
 RUN mkdir lib
 
-RUN g++ -fPIC -shared -o /src/lib/libstreaming.so Streaming_api.cpp Pipeline.cpp -std=c++11 $(pkg-config --cflags --libs gstreamer-1.0)
+CMD [ "sleep", "infinity" ]
 
-# Install .NET runtime (ASP.NET Core 8.0)
-RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
-    dpkg -i packages-microsoft-prod.deb && \
-    apt-get update && \
-    apt-get install -y aspnetcore-runtime-8.0 && \
-    # apt-get clean && \
-    # rm -rf /var/lib/apt/lists/*
+# RUN g++ -fPIC -shared -o /src/lib/libstreaming.so Streaming_api.cpp Pipeline.cpp -std=c++11 $(pkg-config --cflags --libs gstreamer-1.0)
 
-WORKDIR /app
-COPY --from=build /app/publish .
+# # Install .NET runtime (ASP.NET Core 8.0)
+# RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+#     dpkg -i packages-microsoft-prod.deb && \
+#     apt-get update && \
+#     apt-get install -y aspnetcore-runtime-8.0 && \
+#     # apt-get clean && \
+#     # rm -rf /var/lib/apt/lists/*
 
-ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/gstreamer-1.0
-ENV ASPNETCORE_URLS=http://0.0.0.0:8080
+# WORKDIR /app
+# COPY --from=build /app/publish .
 
-EXPOSE 8080
+# ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/gstreamer-1.0
+# ENV ASPNETCORE_URLS=http://0.0.0.0:8080
 
-# Run the application
-ENTRYPOINT ["dotnet", "VPM.dll"]
+# EXPOSE 8080
 
-# Use the official ASP.NET Core runtime image for the runtime environment
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
-WORKDIR /app
-COPY --from=build /app/publish .
+# # Run the application
+# ENTRYPOINT ["dotnet", "VPM.dll"]
 
-# Copy the GStreamer libraries and libstreaming.so from the gstrea\mer-build stage
-COPY --from=gstreamer-build /usr/lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/
-# COPY --from=gstreamer-build /usr/lib/x86_64-linux-gnu/libgstreamer-1.0.so.0 /usr/lib/x86_64-linux-gnu/
-# COPY --from=gstreamer-build /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0 /usr/lib/x86_64-linux-gnu/
+# # Use the official ASP.NET Core runtime image for the runtime environment
+# FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+# WORKDIR /app
+# COPY --from=build /app/publish .
 
-COPY --from=gstreamer-build /src/lib/libstreaming.so /app/lib/libstreaming.so
+# # Copy the GStreamer libraries and libstreaming.so from the gstrea\mer-build stage
+# COPY --from=gstreamer-build /usr/lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/
+# # COPY --from=gstreamer-build /usr/lib/x86_64-linux-gnu/libgstreamer-1.0.so.0 /usr/lib/x86_64-linux-gnu/
+# # COPY --from=gstreamer-build /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0 /usr/lib/x86_64-linux-gnu/
 
-ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/gstreamer-1.0
+# COPY --from=gstreamer-build /src/lib/libstreaming.so /app/lib/libstreaming.so
 
-# Expose the port the VPM runs on
-EXPOSE 8080
+# ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/gstreamer-1.0
 
-# Run the application
-ENTRYPOINT ["dotnet", "VPM.dll"]
+# # Expose the port the VPM runs on
+# EXPOSE 8080
+
+# # Run the application
+# ENTRYPOINT ["dotnet", "VPM.dll"]
