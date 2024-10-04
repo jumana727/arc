@@ -5,6 +5,7 @@ using Arc.Common.Models;
 using Authentication.API.Models;
 using Authentication.Application.DTOs;
 using Authentication.Application.Interfaces;
+using Logging.Core;
 
 namespace Authentication.API.Controllers
 {
@@ -36,18 +37,25 @@ namespace Authentication.API.Controllers
         {
             DataModel<AuthResponse> response = await authservice.VerifyUser(new AuthRequest() { GrantType = "password", ClientId = "myclient", UserName = request.UserName, Password = request.Password });
 
-            if (response != null && response.Status == HttpStatusCode.OK)
+            if (response != null && response.Status == HttpStatusCode.OK){
+                Logger.LogMessage("AuthApi","Information","Login Successfull");
                 return Ok(response);
-            else if (response != null && response.Status == HttpStatusCode.Unauthorized)
+            }
+            else if (response != null && response.Status == HttpStatusCode.Unauthorized){
+                Logger.LogMessage("AuthApi","Error","User Unauthorized");
                 return Unauthorized(response);
-            else
+            }
+            else{
+                Logger.LogMessage("AuthApi","Error","BadRequest");
                 return BadRequest(response);
+            }
         }
 
         [Authorize]
         [HttpGet("validatetoken")]
         public IActionResult ValidateToken()
         {
+            Logger.LogMessage("AuthApi","Information","Token is valid!!");
             return Ok(new { message = "Token is valid" });
         }
 

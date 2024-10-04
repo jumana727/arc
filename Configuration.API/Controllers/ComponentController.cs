@@ -3,6 +3,7 @@ using Arc.Common.Enums;
 using Arc.Common.Models;
 using Configuration.Application.DTOs;
 using Configuration.Application.Interfaces;
+using Logging.Core;
 
 namespace Configuration.API.Controllers
 {
@@ -32,7 +33,7 @@ namespace Configuration.API.Controllers
         #region Components
 
         [HttpGet("get/byDevice")]
-        public IActionResult GetComponents([FromQuery] int deviceId)
+        public async Task<IActionResult> GetComponents([FromQuery] int deviceId)
         {
             var response = new DataModel<List<Component>> { Data = new List<Component>() };
 
@@ -44,12 +45,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Components retrieved successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.NotFound;
                     response.Message = "No data found.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return NotFound(response);
                 }
             }
@@ -57,12 +60,13 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = $"Invalid data. Error: {ex.Message}";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
 
         [HttpGet("get/byComponent")]
-        public IActionResult GetComponent([FromQuery] int deviceId, [FromQuery] int componentId)
+        public async Task<IActionResult> GetComponent([FromQuery] int deviceId, [FromQuery] int componentId)
         {
             var response = new DataModel<Component> { Data = new Component() };
 
@@ -74,12 +78,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Component retrieved successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.NotFound;
                     response.Message = "No data found.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return NotFound(response);
                 }
             }
@@ -87,12 +93,13 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = $"Invalid data. Error: {ex.Message}";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
 
         [HttpPost("addUpdateComponent")]
-        public IActionResult AddUpdateComponent([FromBody] Component component)
+        public async Task<IActionResult> AddUpdateComponent([FromBody] Component component)
         {
             var response = new DataModel<int> { Data = 0 };
 
@@ -106,12 +113,14 @@ namespace Configuration.API.Controllers
                     {
                         response.Status = HttpStatusCode.OK;
                         response.Message = component.Id > 0 ? "Component updated successfully." : "Component added successfully.";
+                        Logger.LogMessage("ConfigApi","Information",response.Message);
                         return Ok(response);
                     }
                     else
                     {
                         response.Status = HttpStatusCode.InternalServerError;
                         response.Message = "Error while performing operation.";
+                        Logger.LogMessage("ConfigApi","Error",response.Message);
                         return UnprocessableEntity(response);
                     }
                 }
@@ -119,6 +128,7 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.InternalServerError;
                     response.Message = $"Error while performing operation. Error: {ex.Message}";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return UnprocessableEntity(response);
                 }
             }
@@ -126,6 +136,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = "Invalid data.";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -143,12 +154,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Component deleted successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.InternalServerError;
                     response.Message = "Error while performing operation.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return UnprocessableEntity(response);
                 }
             }
@@ -156,6 +169,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = $"Invalid data. Error: {ex.Message}";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -177,12 +191,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Stream profiles retrieved successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.NotFound;
                     response.Message = "No data found.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return NotFound(response);
                 }
             }
@@ -190,6 +206,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = $"Invalid data. Error: {ex.Message}";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -207,12 +224,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Stream profile retrieved successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.NotFound;
                     response.Message = "No data found.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return NotFound(response);
                 }
             }
@@ -220,6 +239,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = $"Invalid data. Error: {ex.Message}";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -239,12 +259,14 @@ namespace Configuration.API.Controllers
                     {
                         response.Status = HttpStatusCode.OK;
                         response.Message = streamProfile.Id > 0 ? "Stream profile updated successfully." : "Stream profile added successfully.";
+                        Logger.LogMessage("ConfigApi","Information",response.Message);
                         return Ok(response);
                     }
                     else
                     {
                         response.Status = HttpStatusCode.InternalServerError;
                         response.Message = "Error while performing operation.";
+                        Logger.LogMessage("ConfigApi","Error",response.Message);
                         return UnprocessableEntity(response);
                     }
                 }
@@ -252,6 +274,7 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.InternalServerError;
                     response.Message = $"Error while performing operation. Error: {ex.Message}";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return UnprocessableEntity(response);
                 }
             }
@@ -259,6 +282,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = "Invalid data.";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -276,12 +300,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Stream profile deleted successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.InternalServerError;
                     response.Message = "Error while performing operation.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return UnprocessableEntity(response);
                 }
             }
@@ -289,6 +315,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = $"Invalid data. Error: {ex.Message}";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }

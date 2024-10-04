@@ -1,6 +1,6 @@
 using Microsoft.OpenApi.Models;
 using VPM.Application;
-
+namespace Authentication.API
 namespace VPM
 {
 
@@ -20,6 +20,9 @@ namespace VPM
         {
             string connectionInfo = builder.Configuration.GetConnectionString("conString") ?? string.Empty;
             builder.Services.DependencyInject(connectionInfo);
+
+            Logger.Configure(builder.Configuration, builder.Environment.EnvironmentName);
+            Logger.LogMessage("Authapi", "Information", "Logger configured In VPM MicroService");
 
             // Add controllers to the dependency injection (DI) container.
             builder.Services.AddControllers();

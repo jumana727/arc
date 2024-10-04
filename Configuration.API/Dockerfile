@@ -13,6 +13,7 @@ COPY ["Configuration.API/Configuration.API.csproj", "Configuration.API/"]
 COPY ["../Arc.Common/Arc.Common.csproj", "Arc.Common/"]
 COPY ["../Configuration.Application/Configuration.Application.csproj", "Configuration.Application/"]
 COPY ["../Configuration.Domain/Configuration.Domain.csproj", "Configuration.Domain/"]
+COPY ["../Logging.Core/LoggingService.csproj", "Logging.Core/"]
 COPY ["../Configuration.Infrastructure/Configuration.Infrastructure.csproj", "Configuration.Infrastructure/"]
 
 RUN dotnet restore "Configuration.API/Configuration.API.csproj"

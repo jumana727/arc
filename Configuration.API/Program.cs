@@ -1,6 +1,6 @@
 using Configuration.Application;
 using Microsoft.OpenApi.Models;
-
+using Logging.Core;
 namespace Configuration.API
 {
 
@@ -21,6 +21,7 @@ namespace Configuration.API
             string connectionInfo = builder.Configuration.GetConnectionString("conString") ?? string.Empty;
             builder.Services.DependencyInject(connectionInfo);
 
+            Logger.Configure(builder.Configuration, builder.Environment.EnvironmentName);
             // Add controllers to the dependency injection (DI) container.
             builder.Services.AddControllers();
 

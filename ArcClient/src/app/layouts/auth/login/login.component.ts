@@ -21,6 +21,7 @@ import { PageTitleService } from '../../shared/services/pageTitle/page-title.ser
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { LogData, LoggingService } from '../../../shared/services/logging/logging.service';
 
 interface LoginForm {
   username: string;
@@ -62,12 +63,13 @@ export class LoginComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
+    private loggingService: LoggingService,
     private route: ActivatedRoute,
     private pageTitleService: PageTitleService,
     private authService: AuthService,
-    private router: Router, 
+    private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   async ngOnInit() {
 
@@ -82,10 +84,27 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  logData: LogData = {
+    timestamp: new Date().toISOString(),
+    level: 'info',
+    message: 'User logged in',
+    servicename: 'Login componenet',
+    additionalInfo: {
+      user: '',
+      location: 'india',
+    },
+  };
+
   onLogin() {
-    this.loading = true; 
+    this.loading = true;
     this.customStylesValidated = true;
+
+
+
     if (this.loginForm.username && this.loginForm.password) {
+
+      this.logData.additionalInfo.user = this.loginForm.username;
+
       this.authService
         .login({
           username: this.loginForm.username,
@@ -95,21 +114,79 @@ export class LoginComponent implements OnInit {
           if (response.status === 200) {
             this.router.navigate(['/dashboard']);
             this.toastr.success("Successfully logged in");
+
+            this.logData.timestamp = new Date().toISOString();
+            this.logData.level = "info";
+            this.logData.message = "Successfully logged in";
+
+            this.loggingService.sendLogEntry(this.logData).subscribe({
+              next: (response) => {
+                console.log('Log entry sent:', response);
+              },
+              error: (error) => {
+                console.error('Error sending log entry:', error);
+              },
+            });
+
           } else {
+
+            this.logData.timestamp = new Date().toISOString();
+            this.logData.level = "Error";
+            this.logData.message = response.message || "Login failed";
+
+            this.loggingService.sendLogEntry(this.logData).subscribe({
+              next: (response) => {
+                console.log('Log entry sent:', response);
+              },
+              error: (error) => {
+                console.error('Error sending log entry:', error);
+              },
+            });
             this.toastr.error(response.message || "Please try again later.");
           }
           this.loading = false;
         },
-        (error) => {
-          console.log(error);
-          if (error.status === 0) {
-            this.toastr.error("Server is currently offline. Please try again later.");
-          } else {
-            this.toastr.error(error.error.message || "Please try again later.");
-          }
-          this.loading = false;
-        });
+          (error) => {
+            console.log(error);
+            this.logData.level = "Error";
+            if (error.status === 0) {
+              this.logData.message = "Server is currently offline. Please try again later.";
+              this.loggingService.sendLogEntry(this.logData).subscribe({
+                next: (response) => {
+                  console.log('Log entry sent:', response);
+                },
+                error: (error) => {
+                  console.error('Error sending log entry:', error);
+                },
+              });
+              this.toastr.error("Server is currently offline. Please try again later.");
+            } else {
+              this.logData.message = error.error.message;
+              this.loggingService.sendLogEntry(this.logData).subscribe({
+                next: (response) => {
+                  console.log('Log entry sent:', response);
+                },
+                error: (error) => {
+                  console.error('Error sending log entry:', error);
+                },
+              });
+              this.toastr.error(error.error.message || "Please try again later.");
+            }
+            this.loading = false;
+          });
     } else {
+
+      this.logData.timestamp = new Date().toISOString();
+      this.logData.level = "Error";
+      this.logData.message = "Username or password is empty!";
+      this.loggingService.sendLogEntry(this.logData).subscribe({
+        next: (response) => {
+          console.log('Log entry sent:', response);
+        },
+        error: (error) => {
+          console.error('Error sending log entry:', error);
+        },
+      });
       this.toastr.error("Username or password is empty!");
       this.loading = false;
     }

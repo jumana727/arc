@@ -15,6 +15,7 @@ import {
   NavLinkDirective,
 } from '@coreui/angular';
 import { RouterModule } from '@angular/router';
+import { LogData, LoggingService } from '../../../shared/services/logging/logging.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,7 +41,21 @@ import { RouterModule } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   cards = new Array(4).fill({ body: '' });
+  logData: LogData = {
+    timestamp: new Date().toISOString(),
+    level: 'info',
+    message: 'User Successfully came to dashboard Page',
+    servicename : 'dashboard componenet',
+    additionalInfo: {
+      user: 'abhi',
+      location: 'india',
+    },
+  };
 
+  constructor(
+    private loggingService: LoggingService,
+  ) {}
+  
   ngOnInit(): void {
     this.cards[0] = {
       title: 'Device Module',
@@ -72,5 +87,26 @@ export class DashboardComponent implements OnInit {
       body: 'desc',
       route: '/systemMonitor'
     };
+  }
+
+  onCardClick(card: any): void {
+
+    const logDataCopy: LogData = { ...this.logData };
+
+    // Update the message for the clicked card
+    logDataCopy.message = "User Clicked on " + card.title;
+  
+    // Send the log
+    this.loggingService.sendLogEntry(logDataCopy).subscribe({
+      next: (response) => {
+        console.log('Log entry sent:', response);
+      },
+      error: (error) => {
+        console.error('Error sending log entry:', error);
+      },
+    });
+  
+    console.log('Card clicked:', card);
+
   }
 }

@@ -4,7 +4,7 @@ using Arc.Common.Models;
 using Configuration.Application.Interfaces;
 using Configuration.Application.DTOs;
 using Configuration.API.Models;
-
+using Logging.Core;
 namespace Configuration.API.Controllers
 {
 
@@ -35,10 +35,12 @@ namespace Configuration.API.Controllers
         {
             if (id.HasValue)
             {
+                Logger.LogMessage("ConfigApi","Information","Get Device By Id");
                 return GetDeviceById(id.Value);
             }
             else
             {
+                Logger.LogMessage("ConfigApi","Information","Get All Device");
                 return GetAllDevices();
             }
         }
@@ -56,12 +58,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Devices retrieved successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.NotFound;
                     response.Message = "No data found.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return NotFound(response);
                 }
             }
@@ -69,6 +73,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = "Invalid data.";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -97,12 +102,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Device added successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.InternalServerError;
                     response.Message = "Error while performing operation.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return UnprocessableEntity(response);
                 }
             }
@@ -110,6 +117,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = "Invalid data.";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -127,12 +135,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Device updated successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.InternalServerError;
                     response.Message = "Error while performing operation.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return UnprocessableEntity(response);
                 }
             }
@@ -140,6 +150,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = "Invalid data.";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -157,12 +168,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Device deleted successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.InternalServerError;
                     response.Message = "Error while performing operation.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return UnprocessableEntity(response);
                 }
             }
@@ -170,6 +183,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = "Invalid data.";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -190,12 +204,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Devices retrieved successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.NotFound;
                     response.Message = "No data found.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return NotFound(response);
                 }
             }
@@ -203,6 +219,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = "Invalid data.";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }
@@ -219,12 +236,14 @@ namespace Configuration.API.Controllers
                 {
                     response.Status = HttpStatusCode.OK;
                     response.Message = "Device retrieved successfully.";
+                    Logger.LogMessage("ConfigApi","Information",response.Message);
                     return Ok(response);
                 }
                 else
                 {
                     response.Status = HttpStatusCode.NotFound;
                     response.Message = "No data found.";
+                    Logger.LogMessage("ConfigApi","Error",response.Message);
                     return NotFound(response);
                 }
             }
@@ -232,6 +251,7 @@ namespace Configuration.API.Controllers
             {
                 response.Status = HttpStatusCode.BadRequest;
                 response.Message = "Invalid data.";
+                Logger.LogMessage("ConfigApi","Error",response.Message);
                 return BadRequest(response);
             }
         }

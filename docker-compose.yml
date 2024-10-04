@@ -16,13 +16,19 @@ services:
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:latest
-    command: ["start-dev"]
     ports:
       - "8080:8080"
     volumes:
       - keycloak_data:/opt/keycloak/data
       - "./themes/keycloak:/opt/keycloak/themes/"
       - "./keycloak-email-authenticator:/opt/keycloak/providers/"
+      - ./keycloak/logs:/opt/keycloak/data/log
+    command: 
+      - start-dev
+      - --log-file=/opt/keycloak/data/log/keycloak.log
+      - --log=console,file
+      - --spi-events-listener-jboss-logging-success-level=info
+      - --spi-events-listener-jboss-logging-error-level=warn
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
@@ -31,6 +37,9 @@ services:
       - DB_DATABASE=ConfigDb
       - DB_USER=postgres
       - DB_PASSWORD=admin
+      - KC_LOG_LEVEL=INFO
+      - KC_HEALTH_ENABLED=true
+      - KC_METRICS_ENABLED=true
     networks:
       - arc-network
 
@@ -51,9 +60,61 @@ services:
     networks:
       - arc-network
 
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    ports:
+      - 9200:9200
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=elasticsearch-cluster
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=elastic
+      - xpack.security.enabled=false
+      - http.cors.enabled=true
+      - http.cors.allow-origin=http://localhost:4200
+      - http.cors.allow-methods=OPTIONS,HEAD,GET,POST,PUT,DELETE
+      - http.cors.allow-headers=X-Requested-With,Content-Type,Content-Length,Authorization
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" # Set Java heap size as needed
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - arc-network
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.15.0
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./keycloak/logs:/opt/keycloak/data/log
+    depends_on:
+      - elasticsearch
+      - keycloak
+    networks:
+      - arc-network
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.17.0
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    networks:
+      - arc-network
+
 volumes:
   postgres_data:
   keycloak_data:
+  elasticsearch-data:
+    driver: local
+
 
 networks:
   arc-network:

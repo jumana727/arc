@@ -1,6 +1,6 @@
 using Microsoft.OpenApi.Models;
 using Authentication.Application;
-
+using Logging.Core;
 namespace Authentication.API
 {
 
@@ -18,6 +18,9 @@ namespace Authentication.API
 
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
+            Logger.Configure(builder.Configuration, builder.Environment.EnvironmentName);
+            Logger.LogMessage("Authapi", "Information", "Logger configured In Auth MicroService");
+
             // Add controllers to the dependency injection (DI) container.
             builder.Services.AddControllers();
 

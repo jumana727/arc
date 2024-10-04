@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Arc.Common\Arc.Common.csproj" />
     <ProjectReference Include="..\VPM.Application\VPM.Application.csproj" />
+    <ProjectReference Include="..\Logging.Core\LoggingService.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,22 @@
 #include "Streaming_api.h"
 #include "Pipeline.h"
 #include <map>
+#include "../spdlog/spdlog.h"
+#include "../spdlog/sinks/syslog_sink.h"
+
 
 std::map<int, CMx_Pipeline*> m_MapPipeline;
 
 int EXPORTFUNCT InitPipeline(int iPipelineId, const char * rtspURL)
 {
 
+	 auto syslog_logger = spdlog::syslog_logger_mt("syslog", "", LOG_PID);
+
+        // Log messages to syslog
+        syslog_logger->info("Info message from C++");
+        syslog_logger->error("Error message from C++");
+        syslog_logger->warn("Warning message from C++");
+		
 	if (m_MapPipeline.find(iPipelineId) != m_MapPipeline.end())
 	{
 		//here allready pipeline added

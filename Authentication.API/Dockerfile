@@ -13,7 +13,9 @@ COPY ["Authentication.API/Authentication.API.csproj", "Authentication.API/"]
 COPY ["../Arc.Common/Arc.Common.csproj", "Arc.Common/"]
 COPY ["../Authentication.Domain/Authentication.Domain.csproj", "Authentication.Domain/"]
 COPY ["../Authentication.Infrastructure/Authentication.Infrastructure.csproj", "Authentication.Infrastructure/"]
+COPY ["../Logging.Core/LoggingService.csproj", "Logging.Core/"]
 COPY ["../Authentication.Application/Authentication.Application.csproj", "Authentication.Application/"]
+
 
 RUN dotnet restore "Authentication.API/Authentication.API.csproj"
 

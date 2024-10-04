@@ -2,7 +2,7 @@
 using Arc.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 using VPM.Application.Interfaces;
-
+using Logging.Core;
 namespace VPM.Controllers
 {
 
@@ -45,12 +45,14 @@ namespace VPM.Controllers
                         response.Data = webRTCUrl;
                         response.Status = HttpStatusCode.OK;
                         response.Message = "Stream Url retrieved successfully.";
+                        Logger.LogMessage("VPMApi","Information",response.Message);
                         return Ok(response);
                     }
                     else
                     {
                         response.Status = HttpStatusCode.NotFound;
                         response.Message = "No data found.";
+                        Logger.LogMessage("VPMApi","Error",response.Message);
                         return NotFound(response);
                     }
                 }
@@ -58,11 +60,13 @@ namespace VPM.Controllers
                 {
                     response.Status = HttpStatusCode.BadRequest;
                     response.Message = "Invalid parameters.";
+                    Logger.LogMessage("VPMApi","Error",response.Message);
                     return BadRequest(response);
                 }
             }
             catch (Exception ex)
             {
+                Logger.LogMessage("VPMApi","Error","Internal Server Error");
                 return Problem(detail: ex.ToString(), instance: nameof(VPM), statusCode: (int)HttpStatusCode.InternalServerError, title: "Internal server error.", type: "Internal Server");
             }
         }
@@ -82,12 +86,14 @@ namespace VPM.Controllers
                     {
                         response.Status = HttpStatusCode.OK;
                         response.Message = "Stream started successfully.";
+                        Logger.LogMessage("VPMApi","Information",response.Message);
                         return Ok(response);
                     }
                     else
                     {
                         response.Status = HttpStatusCode.NotFound;
                         response.Message = "No data found.";
+                        Logger.LogMessage("VPMApi","Error",response.Message);
                         return NotFound(response);
                     }
                 }
@@ -95,11 +101,13 @@ namespace VPM.Controllers
                 {
                     response.Status = HttpStatusCode.BadRequest;
                     response.Message = "Invalid parameters.";
+                    Logger.LogMessage("VPMApi","Error",response.Message);
                     return BadRequest(response);
                 }
             }
             catch (Exception ex)
             {
+                Logger.LogMessage("VPMApi","Error","Internal Server Error");
                 return Problem(detail: ex.ToString(), instance: nameof(VPM), statusCode: (int)HttpStatusCode.InternalServerError, title: "Internal server error.", type: "Internal Server");
             }
         }
@@ -119,12 +127,14 @@ namespace VPM.Controllers
                     {
                         response.Status = HttpStatusCode.OK;
                         response.Message = "Stream paused successfully.";
+                        Logger.LogMessage("VPMApi","Information",response.Message);
                         return Ok(response);
                     }
                     else
                     {
                         response.Status = HttpStatusCode.NotFound;
                         response.Message = "No data found.";
+                        Logger.LogMessage("VPMApi","Error",response.Message);
                         return NotFound(response);
                     }
                 }
@@ -132,11 +142,13 @@ namespace VPM.Controllers
                 {
                     response.Status = HttpStatusCode.BadRequest;
                     response.Message = "Invalid parameters.";
+                    Logger.LogMessage("VPMApi","Error",response.Message);
                     return BadRequest(response);
                 }
             }
             catch (Exception ex)
             {
+                Logger.LogMessage("VPMApi","Error","Internal Server Error");
                 return Problem(detail: ex.ToString(), instance: nameof(VPM), statusCode: (int)HttpStatusCode.InternalServerError, title: "Internal server error.", type: "Internal Server");
             }
         }
@@ -156,12 +168,14 @@ namespace VPM.Controllers
                     {
                         response.Status = HttpStatusCode.OK;
                         response.Message = "Stream stopped successfully.";
+                        Logger.LogMessage("VPMApi","Information",response.Message);
                         return Ok(response);
                     }
                     else
                     {
                         response.Status = HttpStatusCode.NotFound;
                         response.Message = "No data found.";
+                        Logger.LogMessage("VPMApi","Error",response.Message);
                         return NotFound(response);
                     }
                 }
@@ -169,11 +183,13 @@ namespace VPM.Controllers
                 {
                     response.Status = HttpStatusCode.BadRequest;
                     response.Message = "Invalid parameters.";
+                    Logger.LogMessage("VPMApi","Error",response.Message);
                     return BadRequest(response);
                 }
             }
             catch (Exception ex)
             {
+                Logger.LogMessage("VPMApi","Error","Internal Server Error");
                 return Problem(detail: ex.ToString(), instance: nameof(VPM), statusCode: (int)HttpStatusCode.InternalServerError, title: "Internal server error.", type: "Internal Server");
             }
         }
