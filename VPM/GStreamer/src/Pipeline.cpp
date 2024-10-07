@@ -6,10 +6,23 @@
 #include <unistd.h>
 #include <limits.h>
 #include <gst/rtsp/rtsp.h>
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
+#include "sink/elasticsearch_sink.hpp"
+
+std::shared_ptr<spdlog::logger> logger;
+
+void InitLogger();
 
 //
 CMx_Pipeline::CMx_Pipeline()
 {
+    if (!logger) {
+        InitLogger();  // Ensure logger is initialized
+		g_print("initializing elastic logger");
+    }
+
+	logger->info("Initializing pipeline");
 	//here init gstreamer 
 	//debug enable 
 	std::string path = GetCurrentWorkingDirectory();
@@ -124,9 +137,12 @@ void CMx_Pipeline::StartLiveView()
 	ret = gst_element_set_state(Pipeline, GST_STATE_PLAYING);
 	if (ret == GST_STATE_CHANGE_FAILURE) {
 		g_print("Failed to start live view.");
+		logger->info("failed to start live view");
+
 	}
 	else {
 		g_print("Live view started successfully.\n");
+		logger->info("Live view started successfully.");
 	}
 
 	//
@@ -160,6 +176,30 @@ void CMx_Pipeline::GetLiveURL(char * GetLiveURL)
 	{
 		memcpy(GetLiveURL, m_webrtURL.c_str(), m_webrtURL.size());
 	}
+}
+
+void InitLogger() {
+    try {
+        // Create Elasticsearch sink
+        auto elasticsearch_sink = std::make_shared<elasticsearch_sink_mt>("http://elasticsearch:9200", "gstremmerlogcpp");
+        
+        // Create file sink
+        auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>("logs.txt", true);
+        
+        // Create a logger with both sinks
+        logger = std::make_shared<spdlog::logger>("combined_logger", spdlog::sinks_init_list({elasticsearch_sink, file_sink}));
+        
+        // Set the log pattern
+        logger->set_pattern("%n: [%l] %v");
+        
+        // Register the logger globally (optional)
+        spdlog::register_logger(logger);
+        
+        // Set global log level to debug
+        logger->set_level(spdlog::level::debug);
+    } catch (const spdlog::spdlog_ex &ex) {
+        std::cerr << "Log initialization failed: " << ex.what() << std::endl;
+    }
 }
 //void CMx_Pipeline::StartRecording()
 //{

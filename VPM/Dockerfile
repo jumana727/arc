@@ -44,7 +44,8 @@ RUN apt-get update && apt-get install -y libgstreamer1.0-dev \
 # Install g++ and clean up to reduce image size
 RUN apt-get install -y g++ \
     ca-certificates \
-    wget
+    wget \
+    libcurl4-openssl-dev
     # apt-get clean && \
     # rm -rf /var/lib/apt/lists/*
 
@@ -57,31 +58,31 @@ WORKDIR /src
 
 COPY VPM/GStreamer/src/ .
 COPY VPM/GStreamer/spdlog/ ./spdlog
+COPY VPM/GStreamer/sink/ ./sink
 
 RUN mkdir lib
 
-CMD [ "sleep", "infinity" ]
-
 # RUN g++ -fPIC -shared -o /src/lib/libstreaming.so Streaming_api.cpp Pipeline.cpp -std=c++11 $(pkg-config --cflags --libs gstreamer-1.0)
+RUN g++ -fPIC -shared -o /src/lib/libstreaming.so Streaming_api.cpp Pipeline.cpp -I"spdlog/include" -std=c++17 $(pkg-config --cflags --libs gstreamer-1.0) -lcurl
 
-# # Install .NET runtime (ASP.NET Core 8.0)
-# RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
-#     dpkg -i packages-microsoft-prod.deb && \
-#     apt-get update && \
-#     apt-get install -y aspnetcore-runtime-8.0 && \
-#     # apt-get clean && \
-#     # rm -rf /var/lib/apt/lists/*
+# Install .NET runtime (ASP.NET Core 8.0)
+RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+    dpkg -i packages-microsoft-prod.deb && \
+    apt-get update && \
+    apt-get install -y aspnetcore-runtime-8.0
+    # apt-get clean && \
+    # rm -rf /var/lib/apt/lists/*
 
-# WORKDIR /app
-# COPY --from=build /app/publish .
+WORKDIR /app
+COPY --from=build /app/publish .
 
-# ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/gstreamer-1.0
-# ENV ASPNETCORE_URLS=http://0.0.0.0:8080
+ENV LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/gstreamer-1.0
+ENV ASPNETCORE_URLS=http://0.0.0.0:8080
 
-# EXPOSE 8080
+EXPOSE 8080
 
-# # Run the application
-# ENTRYPOINT ["dotnet", "VPM.dll"]
+# Run the application
+ENTRYPOINT ["dotnet", "VPM.dll"]
 
 # # Use the official ASP.NET Core runtime image for the runtime environment
 # FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
