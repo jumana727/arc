@@ -1,37 +1,69 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
 metadata:
-  name: authentication-api-deployment
+  name: auth-api
+  namespace: default
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: authentication-api
-  template:
-    metadata:
-      labels:
-        app: authentication-api
-    spec:
-      containers:
-      - name: authentication-api
-        image: phadkesharanmatrixcomsec/arc-authentication:hls-1.0
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 8080
-        env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: "Production"
+  protocol: http
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: authentication-api-service
+  labels:
+    app: auth-api
+  name: auth-api
+  namespace: default
 spec:
-  selector:
-    app: authentication-api
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: ClusterIP
-
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: auth-api
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: auth-api
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth-api
+  name: auth-api
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-api
+  template:
+    metadata:
+      labels:
+        app: auth-api
+      annotations:
+        'consul.hashicorp.com/connect-inject': 'true'
+    spec:
+      serviceAccountName: auth-api
+      containers:
+      - image: jumanakj/arc-auth-kong:1.0
+        imagePullPolicy: IfNotPresent
+        name: auth-api
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+        - name: SERVICE_NAME
+          value: auth-api
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        ports:
+        - containerPort: 8080

@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
     };
     this.cards[1] = {
       title: 'Playback',
-      img: 'assets/images/modules/playback.jpg',
+      img: 'assets/images/modules/playback-v2.jpg',
       body: 'play recorded stream',
       route: '/playback'
     };

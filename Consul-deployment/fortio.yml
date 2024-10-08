@@ -1,0 +1,71 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: fortio
+  namespace: default
+spec:
+  protocol: http
+  upstreamConfig:
+    defaults:
+      connectTimeoutMs: 5000
+      limits:
+        maxConnections: 1
+        maxPendingRequests: 1
+        maxConcurrentRequests: 1
+      passiveHealthCheck:
+        interval: "5s"
+        maxFailures: 10
+        enforcingConsecutive5xx: 10
+        maxEjectionPercent: 100
+        baseEjectionTime: "10s"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fortio
+  labels:
+    app: fortio
+    service: fortio
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: fortio
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fortio
+  namespace: default
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fortio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fortio
+  template:
+    metadata:
+      annotations:
+        # This annotation causes Envoy to serve cluster.outbound statistics via 15000/stats
+        # in addition to the stats normally served by Istio. The Circuit Breaking example task
+        # gives an example of inspecting Envoy stats via proxy config.
+        'consul.hashicorp.com/connect-inject': 'true'
+      labels:
+        app: fortio
+    spec:
+      serviceAccountName: fortio
+      containers:
+      - name: fortio
+        image: fortio/fortio:latest_release
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http-fortio
+        - containerPort: 8079
+          name: grpc-ping

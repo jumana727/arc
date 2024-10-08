@@ -1,36 +1,104 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web-spa-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: web-spa
-  template:
-    metadata:
-      labels:
-        app: web-spa
-    spec:
-      containers:
-      - name: web-spa
-        image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 80
-        env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: "Production"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-spa-service
+  name: frontend
+  labels:
+    app: frontend
 spec:
-  selector:
-    app: web-spa
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
   type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: frontend
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: frontend
+automountServiceAccountToken: true
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: frontend
+spec:
+  meshGateway:
+    mode: local
+  protocol: http
+  upstreamConfig:
+    defaults:
+      meshGateway:
+        mode: local
+      limits:
+        maxConnections: 1
+        maxPendingRequests: 1
+        maxConcurrentRequests: 1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: frontend
+      app: frontend
+  template:
+    metadata:
+      labels:
+        service: frontend
+        app: frontend
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9102"
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/service-meta-version: "1"
+        consul.hashicorp.com/service-tags: "v1"
+    spec:
+      serviceAccountName: frontend
+      containers:
+        - name: frontend
+          image: jumanakj/arc-webspa-kong:1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: frontend
+      app: frontend
+  template:
+    metadata:
+      labels:
+        service: frontend
+        app: frontend
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9102"
+        consul.hashicorp.com/connect-inject: "true"
+        consul.hashicorp.com/service-meta-version: "2"
+        consul.hashicorp.com/service-tags: "v2"
+    spec:
+      serviceAccountName: frontend
+      containers:
+        - name: frontend
+          image: jumanakj/arc-webspa-v2:1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"

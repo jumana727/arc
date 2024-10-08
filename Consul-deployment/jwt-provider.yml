@@ -1,0 +1,12 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: JWTProvider
+metadata:
+  name: keycloak-provider
+spec:
+  issuer: 'http://keycloak.default.svc.cluster.local/realms/myrealm'
+  audiences: ["account"]
+  jsonWebKeySet:
+    remote:
+      uri: 'http://keycloak.default.svc.cluster.local:8080/realms/myrealm/protocol/openid-connect/certs'
+  forwarding:
+    headerName: user-token  

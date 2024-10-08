@@ -1,0 +1,10 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceResolver
+metadata:
+  name: frontend
+spec:
+  loadBalancer:
+    policy: maglev
+    hashPolicies:
+      - field: header
+        fieldValue: x-user-id

@@ -1,7 +1,7 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceDefaults
 metadata:
-  name: config-api
+  name: keycloak
   namespace: default
 spec:
   protocol: http
@@ -10,21 +10,21 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: config-api
-  name: config-api
+    app: keycloak
+  name: keycloak
   namespace: default
 spec:
   ports:
-  - port: 80
-    protocol: TCP
+  - name: http
+    port: 8080
     targetPort: 8080
   selector:
-    app: config-api
+    app: keycloak
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: config-api
+  name: keycloak
   namespace: default
 automountServiceAccountToken: true
 ---
@@ -32,30 +32,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: config-api
-  name: config-api
+    app: keycloak
+  name: keycloak
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: config-api
+      app: keycloak
   template:
     metadata:
       labels:
-        app: config-api
+        app: keycloak
       annotations:
         'consul.hashicorp.com/connect-inject': 'true'
     spec:
-      serviceAccountName: config-api
+      serviceAccountName: keycloak
       containers:
-      - image: jumanakj/arc-configuration:1.0
-        name: config-api
+      - image: quay.io/keycloak/keycloak:25.0.6
+        args: ["start-dev"]
+        imagePullPolicy: IfNotPresent
+        name: keycloak
         env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: "Production"
+        - name: KEYCLOAK_ADMIN
+          value: "admin"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: "admin"
+        - name: KC_PROXY
+          value: "edge"
         - name: SERVICE_NAME
-          value: config-api
+          value: keycloak
         - name: POD_NAME
           valueFrom:
             fieldRef:
