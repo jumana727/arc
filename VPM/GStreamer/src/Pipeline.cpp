@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <limits.h>
 #include <gst/rtsp/rtsp.h>
+#include <cstdlib>
 
 //
 CMx_Pipeline::CMx_Pipeline()
@@ -102,6 +103,28 @@ void CMx_Pipeline::InitPipeline(int ipipelineID, const char * rtspURL)
 
 
 	std::string mediaMtxIP = "mediamtx.default.svc.cluster.local";
+
+	const char* env_var = std::getenv("ASPNETCORE_ENVIRONMENT");
+
+	if(env_var == nullptr)
+	{
+		mediaMtxIP = "localhost";
+	}
+
+	else
+	{
+		if(std::string(env_var) == "Docker")
+		{
+			mediaMtxIP = "mediamtx";
+		}
+
+		else if(std::string(env_var) == "Production")
+		{
+			mediaMtxIP = "mediamtx.default.svc.cluster.local";
+		}
+	}
+	
+
 	std::string mediaMtxURL = "rtsp://"  + mediaMtxIP + ":8554/" + "live" + std::to_string(ipipelineID);
 
 	m_webrtURL = "http://"  + mediaMtxIP + ":8889/" + "live" + std::to_string(ipipelineID);
