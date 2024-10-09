@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^18.1.0",
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
+    "@angular/service-worker": "^18.1.0",
     "@coreui/angular": "^5.2.11",
     "@coreui/angular-chartjs": "^5.2.11",
     "@coreui/chartjs": "^4.0.0",
