@@ -4,14 +4,14 @@
 compress_images() {
     echo "Compressing Docker images..."
     docker save -o arc.tar \
-        phadkesharanmatrixcomsec/arc-vpm:hls-1.0 \
-        phadkesharanmatrixcomsec/arc-gateway:1.0 \
-        phadkesharanmatrixcomsec/arc-configuration:hls-1.0 \
-        phadkesharanmatrixcomsec/arc-webspa:hls-1.0 \
-        phadkesharanmatrixcomsec/arc-authentication:hls-1.0 \
+        phadkesharanmatrixcomsec/arc-vpm:hls-1.0-slim \
+        phadkesharanmatrixcomsec/arc-gateway:1.0-alpine \
+        phadkesharanmatrixcomsec/arc-configuration:hls-1.0-alpine \
+        phadkesharanmatrixcomsec/arc-webspa:hls-1.0-slim \
+        phadkesharanmatrixcomsec/arc-authentication:hls-1.0-alpine \
         quay.io/keycloak/keycloak:latest \
         bluenviron/mediamtx:latest \
-        nginx:latest \
+        nginx:alpine \
         postgres:latest 
 
 
