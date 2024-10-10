@@ -44,6 +44,8 @@ services:
     build:
       context: .
       dockerfile: ./ArcClient/Dockerfile
+      args:
+        CONFIGURATION: development # or docker, staging, etc.
     ports:
       - "4200:80"
     networks:

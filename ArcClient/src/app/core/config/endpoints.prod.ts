@@ -1,7 +1,5 @@
 export const API_ENDPOINTS = {
-    BASE_URL: 'http://localhost:5039/api',
-    // BASE_URL: 'https://172.16.0.42:44347/api',
-    // BASE_URL: 'http://matrix.keycloak:4200/api',
+    BASE_URL: 'http://matrix.keycloak:4200/api',
     AUTH: {
       LOGIN: '/Auth/login',
       VALIDATE_TOKEN: '/Auth/validatetoken',
@@ -23,6 +21,6 @@ export const API_ENDPOINTS = {
     },
     GETWEBRTCURL : '/Stream/getstreamurl',
 
-    HLS_BASE_URL : 'localhost:8888',
-    MEDIAMTX_URL : 'mediamtx'
+    HLS_BASE_URL : 'hls-streams:4200',
+    MEDIAMTX_URL : 'mediamtx.default.svc.cluster.local'
   };

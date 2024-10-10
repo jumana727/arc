@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { IconDirective } from '@coreui/icons-angular';
 import { NavLinkDirective } from '@coreui/angular';
+import { API_ENDPOINTS } from '../../../core/config/endpoints';
 declare var Hls: any;
 
 interface IceServer {
@@ -398,7 +399,8 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     if (this.isHLS === true)
     {
       this.hlsURL = this.webRTCURL.replace(':8889', '');
-      this.hlsURL = this.hlsURL.replace('mediamtx.default.svc.cluster.local', 'hls-streams:4200');
+      // this.hlsURL = this.hlsURL.replace('mediamtx', 'localhost:8888');
+      this.hlsURL = this.hlsURL.replace(API_ENDPOINTS.MEDIAMTX_URL, API_ENDPOINTS.HLS_BASE_URL);
 
       // this.hlsURL = "http://hls-streams/matrixcamera/";
       if (Hls.isSupported()) {
