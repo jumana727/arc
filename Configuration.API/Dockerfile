@@ -26,7 +26,7 @@ RUN dotnet build "Configuration.API.csproj" -c Release -o /app/build
 RUN dotnet publish "Configuration.API.csproj" -c Release -o /app/publish
 
 # Use the official ASP.NET Core runtime image for the runtime environment
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
