@@ -1,6 +1,6 @@
 services:
   gateway:
-    image: phadkesharanmatrixcomsec/arc-gateway:1.0
+    image: phadkesharanmatrixcomsec/arc-gateway:1.0-alpine
     build:
       context: .
       dockerfile: Arc.Gateway/Dockerfile
@@ -16,7 +16,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
 
   authentication:
-    image: phadkesharanmatrixcomsec/arc-authentication:hls-1.0
+    image: phadkesharanmatrixcomsec/arc-authentication:hls-1.0-alpine
     build:
       context: .
       dockerfile: Authentication.API/Dockerfile
@@ -25,10 +25,10 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
 
   configuration:
-    image: phadkesharanmatrixcomsec/arc-configuration:hls-1.0
+    image: phadkesharanmatrixcomsec/arc-configuration:hls-1.0-alpine
     build:
       context: . 
       dockerfile: Configuration.API/Dockerfile
@@ -37,7 +37,7 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
 
   pushnotifications:
     image: pushnotifications
@@ -58,19 +58,20 @@ services:
       - arc-network
 
   arc-webclient:
-    image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0
+    image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0-slim
     build:
       context: .
       dockerfile: ./ArcClient/Dockerfile
+      args:
+        CONFIGURATION: development # or docker, staging, etc.
     ports:
       - "4200:80"
     networks:
       - arc-network
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+
 
   vpm:
-    image: phadkesharanmatrixcomsec/arc-vpm:hls-1.0
+    image: phadkesharanmatrixcomsec/arc-vpm:hls-1.0-slim
     build:
       context: . 
       dockerfile: VPM/Dockerfile
@@ -79,7 +80,7 @@ services:
     networks:
       - arc-network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
 
 networks:
   arc-network:

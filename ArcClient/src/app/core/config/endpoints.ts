@@ -24,5 +24,7 @@ export const API_ENDPOINTS = {
   PushNotifications: {
     RecordToken: '/recordToken',
     SendNotifications: '/sendNotifications'
-  }
+  },
+  HLS_BASE_URL : 'localhost:8888',
+  MEDIAMTX_URL : 'mediamtx'
 };

@@ -3,8 +3,11 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var keycloakAuthority = builder.Configuration.GetValue<string>("KeycloakAuthority") ?? "http://localhost:8080/realms/myrealm";
+var ocelotConfigFile = builder.Configuration.GetValue<string>("OcelotConfigFile") ?? "ocelot.json";
+
 // Add configuration to read Ocelot.json
-builder.Configuration.AddJsonFile("ocelot.Docker.json", optional: false, reloadOnChange: true);
+builder.Configuration.AddJsonFile(ocelotConfigFile, optional: false, reloadOnChange: true);
 
 builder.Services.AddCors(options =>
 {
@@ -19,7 +22,7 @@ builder.Services.AddCors(options =>
 // Configure authentication
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
 {
-    options.Authority = "http://keycloak:8080/realms/myrealm";
+    options.Authority = keycloakAuthority;
     options.Audience = "*";
     options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -27,7 +30,7 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
         ValidateAudience = true,
         ValidAudience = "account",
         ValidateIssuer = true,
-        ValidIssuer = "http://keycloak:8080/realms/myrealm",
+        ValidIssuer = keycloakAuthority,
         ValidateLifetime = true
     };
 });

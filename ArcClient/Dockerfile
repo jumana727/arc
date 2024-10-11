@@ -1,6 +1,9 @@
 # Stage 1: Build the Angular application
 FROM node:22.9.0 AS build
 
+# Set build default argument for configuration
+ARG CONFIGURATION=development
+
 # Set working directory
 WORKDIR /app
 
@@ -17,7 +20,7 @@ RUN npm install
 COPY ArcClient ./
 
 # Build the Angular application
-RUN npm run build --prod
+RUN npm run build -- --configuration=${CONFIGURATION}
 
 # Stage 2: Serve the Angular application
 FROM nginx:alpine
