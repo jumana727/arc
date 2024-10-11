@@ -1,6 +1,5 @@
 export const API_ENDPOINTS = {
-  // BASE_URL: 'http://localhost:5039',
-  BASE_URL: 'http://matrix.keycloak:4200',
+  BASE_URL: 'http://localhost:5039',
   AUTH: {
     LOGIN: '/api/Auth/login',
     VALIDATE_TOKEN: '/api/Auth/validatetoken',

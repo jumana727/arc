@@ -1,26 +1,29 @@
 export const API_ENDPOINTS = {
-    BASE_URL: 'http://matrix.keycloak:4200/api',
+    BASE_URL: 'http://matrix.keycloak:4200',
     AUTH: {
-      LOGIN: '/Auth/login',
-      VALIDATE_TOKEN: '/Auth/validatetoken',
+      LOGIN: '/api/Auth/login',
+      VALIDATE_TOKEN: '/api/Auth/validatetoken',
     },
     DEVICE: {
-      ADD: '/Device/add',
-      GET: '/Device/get',
-      UPDATE: '/Device/update',
-      DELETE: '/Device/delete',
-      GETNAMELIST: '/Device/devicecomponent',
+      ADD: '/api/Device/add',
+      GET: '/api/Device/get',
+      UPDATE: '/api/Device/update',
+      DELETE: '/api/Device/delete',
+      GETNAMELIST: '/api/Device/devicecomponent',
     },
     DEVICECOMPONENT: {
-      GETBYDEVICE: '/Component/get/byDevice',
-      GETSTREAMPROFILEBYCOPONENT: '/Component/getStreamProfile/byComponent'
+      GETBYDEVICE: '/api/Component/get/byDevice',
+      GETSTREAMPROFILEBYCOPONENT: '/api/Component/getStreamProfile/byComponent',
     },
     STREAMPROFILE: {
-      GETBYCOMPONENT: '/Component/getStreamProfiles/byComponent',
-      UPDATE: '/Component/addUpdateStreamProfile',
+      GETBYCOMPONENT: '/api/Component/getStreamProfiles/byComponent',
+      UPDATE: '/api/Component/addUpdateStreamProfile',
     },
-    GETWEBRTCURL : '/Stream/getstreamurl',
-
+    GETWEBRTCURL: '/api/Stream/getstreamurl',
+    PushNotifications: {
+      RecordToken: '/recordToken',
+      SendNotifications: '/sendNotifications'
+    },
     HLS_BASE_URL : 'hls-streams:4200',
     MEDIAMTX_URL : 'mediamtx.default.svc.cluster.local'
   };
