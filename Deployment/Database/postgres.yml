@@ -1,3 +1,33 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: postgres
+  namespace: default
+spec:
+  protocol: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgres
+  name: postgres
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: postgres
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: postgres
+  namespace: default
+automountServiceAccountToken: true
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,7 +41,10 @@ spec:
     metadata:
       labels:
         app: postgres
+      annotations:
+        'consul.hashicorp.com/connect-inject': 'true'
     spec:
+      serviceAccountName: postgres
       containers:
         - name: postgres
           image: 'postgres:15'

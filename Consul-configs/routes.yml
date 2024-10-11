@@ -50,7 +50,7 @@ spec:
         - action: allow
           http:
             pathPrefix: /api/Device/
-            methods: ['GET'] 
+            methods: ['GET','POST'] 
     - name: fortio
       action: allow 
 ---
@@ -87,6 +87,17 @@ spec:
     name: keycloak
   sources:
     - name: auth-api
+      action: allow  
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: postgres-intention 
+spec:
+  destination:
+    name: postgres
+  sources:
+    - name: config-api
       action: allow  
 # ---
 # apiVersion: consul.hashicorp.com/v1alpha1

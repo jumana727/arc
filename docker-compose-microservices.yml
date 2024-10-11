@@ -1,19 +1,19 @@
 services:
-  # gateway:
-  #   image: phadkesharanmatrixcomsec/arc-gateway:1.0
-  #   build:
-  #     context: .
-  #     dockerfile: Arc.Gateway/Dockerfile
-  #   ports:
-  #     - "5039:8080"
-  #   depends_on:
-  #     - authentication
-  #     - configuration
-  #     - vpm
-  #   networks:
-  #     - arc-network
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Docker
+  gateway:
+    image: phadkesharanmatrixcomsec/arc-gateway:1.0
+    build:
+      context: .
+      dockerfile: Arc.Gateway/Dockerfile
+    ports:
+      - "5039:8080"
+    depends_on:
+      - authentication
+      - configuration
+      - vpm
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
 
   authentication:
     image: jumanakj/arc-auth-kong:1.0
@@ -27,17 +27,17 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
-  # configuration:
-  #   image: jumanakj/arc-configuration:1.0
-  #   build:
-  #     context: . 
-  #     dockerfile: Configuration.API/Dockerfile
-  #   ports:
-  #     - "5011:8080"
-  #   networks:
-  #     - arc-network
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Production
+  configuration:
+    image: jumanakj/arc-configuration:1.0
+    build:
+      context: . 
+      dockerfile: Configuration.API/Dockerfile
+    ports:
+      - "5011:8080"
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
 
   arc-webclient:
     image: jumanakj/arc-webspa-v2:1.0
@@ -51,17 +51,17 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
-  # vpm:
-  #   image: phadkesharanmatrixcomsec/arc-vpm:hls-1.0
-  #   build:
-  #     context: . 
-  #     dockerfile: VPM/Dockerfile
-  #   ports:
-  #     - "5075:8080"
-  #   networks:
-  #     - arc-network
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Production
+  vpm:
+    image: phadkesharanmatrixcomsec/arc-vpm:hls-1.0
+    build:
+      context: . 
+      dockerfile: VPM/Dockerfile
+    ports:
+      - "5075:8080"
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
 
 networks:
   arc-network:

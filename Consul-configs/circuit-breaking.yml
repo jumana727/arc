@@ -1,0 +1,19 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: frontend
+spec:
+  upstreamConfig:
+    defaults:
+      meshGateway:
+        mode: local
+      limits:
+        maxConnections: 1
+        maxPendingRequests: 1
+        maxConcurrentRequests: 1
+      passiveHealthCheck:
+        interval: "1s"
+        maxFailures: 2
+        enforcingConsecutive5xx: 1
+        maxEjectionPercent: 100
+        baseEjectionTime: "3m"
