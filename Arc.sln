@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPM.Domain", "VPM.Domain\VP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VPM.Infrastructure", "VPM.Infrastructure\VPM.Infrastructure.csproj", "{94D40125-C917-4F2F-9972-494E83579E12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushNotifications", "src\PushNotifications\PushNotifications.csproj", "{69306B5C-C622-4D5C-9565-2A099DDFA823}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,14 @@ Global
 		{94D40125-C917-4F2F-9972-494E83579E12}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94D40125-C917-4F2F-9972-494E83579E12}.Release|x64.ActiveCfg = Release|Any CPU
 		{94D40125-C917-4F2F-9972-494E83579E12}.Release|x64.Build.0 = Release|Any CPU
+		{69306B5C-C622-4D5C-9565-2A099DDFA823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69306B5C-C622-4D5C-9565-2A099DDFA823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69306B5C-C622-4D5C-9565-2A099DDFA823}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69306B5C-C622-4D5C-9565-2A099DDFA823}.Debug|x64.Build.0 = Debug|Any CPU
+		{69306B5C-C622-4D5C-9565-2A099DDFA823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69306B5C-C622-4D5C-9565-2A099DDFA823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69306B5C-C622-4D5C-9565-2A099DDFA823}.Release|x64.ActiveCfg = Release|Any CPU
+		{69306B5C-C622-4D5C-9565-2A099DDFA823}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -188,6 +198,7 @@ Global
 		{85CB94EB-C881-4997-927D-2C0AE7E97F03} = {48F89866-2573-4426-AD22-86666472A320}
 		{02D674CF-6684-4684-BCC2-E66D4A8DBAAA} = {48F89866-2573-4426-AD22-86666472A320}
 		{94D40125-C917-4F2F-9972-494E83579E12} = {48F89866-2573-4426-AD22-86666472A320}
+		{69306B5C-C622-4D5C-9565-2A099DDFA823} = {EC6972E3-E8EE-4070-B170-6B1EFAD2657F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE4B7CCA-2101-4E90-BFA0-6269A0684AA9}

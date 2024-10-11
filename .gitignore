@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # MacOS - auto-generated hidden files
 *.DS_Store
+
+# Credentials
+*[Cc]redentials*

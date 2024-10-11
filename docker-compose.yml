@@ -51,8 +51,33 @@ services:
     networks:
       - arc-network
 
+  postgres-PushNotifications:
+    image: postgres
+    container_name: postgres-PushNotifications
+    environment:
+      - POSTGRES_DB=PushNotifications
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=P@55vv0rC/
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres_data_push_notifications:/var/lib/postgresql/data
+    networks:
+      - arc-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 8888:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: strong-password
+    networks:
+      - arc-network
+
 volumes:
   postgres_data:
+  postgres_data_push_notifications:
   keycloak_data:
 
 networks:

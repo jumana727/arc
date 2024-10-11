@@ -299,7 +299,39 @@
           "AuthenticationProviderKey": "Bearer",
           "AllowedScopes": []
         }
-      }
+      },
+      {
+        "DownstreamPathTemplate": "/recordToken",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "pushnotifications",
+            "Port": 8083
+          }
+        ],
+        "UpstreamPathTemplate": "/recordToken",
+        "UpstreamHttpMethod": ["POST"],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/sendNotifications",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "pushnotifications",
+            "Port": 8083
+          }
+        ],
+        "UpstreamPathTemplate": "/sendNotifications",
+        "UpstreamHttpMethod": ["GET"],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      }      
     ],
     "GlobalConfiguration": {
       "BaseUrl": "http://gateway:5039",

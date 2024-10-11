@@ -21,4 +21,8 @@ export const API_ENDPOINTS = {
     UPDATE: '/api/Component/addUpdateStreamProfile',
   },
   GETWEBRTCURL: '/api/Stream/getstreamurl',
+  PushNotifications: {
+    RecordToken: '/recordToken',
+    SendNotifications: '/sendNotifications'
+  }
 };

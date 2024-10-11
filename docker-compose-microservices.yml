@@ -39,6 +39,24 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
+  pushnotifications:
+    image: pushnotifications
+    build:
+      context: .
+      dockerfile: Src/PushNotifications/Dockerfile
+      args:
+        - configuration=Debug
+    ports:
+      - 8083:8083
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/Firebase-Credentials/service-account-credentials.json
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+      - ./Src/PushNotifications/Firebase-Credentials:/app/Firebase-Credentials
+    networks:
+      - arc-network
+
   arc-webclient:
     image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0
     build:
