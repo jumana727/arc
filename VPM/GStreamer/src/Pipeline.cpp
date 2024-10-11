@@ -102,11 +102,11 @@ void CMx_Pipeline::InitPipeline(int ipipelineID, const char * rtspURL)
 	g_object_set(sink, "protocols", GST_RTSP_LOWER_TRANS_TCP, nullptr);
 
 
-	std::string mediaMtxIP = "mediamtx.default.svc.cluster.local";
+	std::string mediaMtxIP = "localhost";
 
 	const char* env_var = std::getenv("ASPNETCORE_ENVIRONMENT");
 
-	if(env_var == nullptr)
+	if(env_var == nullptr || env_var == "Development")
 	{
 		mediaMtxIP = "localhost";
 	}
