@@ -33,6 +33,7 @@ spec:
         type: RegularExpression
         value: "/.*"
     backendRefs:
+    # traffic splitting 50-50 between 2 versions of web-spa
     - group: ""
       kind: Service
       name: web-spa-service-v1
