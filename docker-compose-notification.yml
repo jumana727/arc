@@ -1,0 +1,49 @@
+services:
+  postgres-PushNotifications:
+    image: postgres
+    container_name: postgres-PushNotifications
+    environment:
+      - POSTGRES_DB=PushNotifications
+      - POSTGRES_USER=postgresadmin
+      - POSTGRES_PASSWORD=P@55vv0rC/
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres_data_push_notifications:/var/lib/postgresql/data
+    networks:
+      - arc-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 9999:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: strong-password
+    networks:
+      - arc-network
+
+  pushnotifications:
+    image: pushnotifications
+    build:
+      context: .
+      dockerfile: src/PushNotifications/Dockerfile
+      args:
+        - configuration=Debug
+    ports:
+      - 8083:8083
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/Firebase-Credentials/service-account-credentials.json
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+      - ./src/PushNotifications/Firebase-Credentials:/app/Firebase-Credentials
+    networks:
+      - arc-network
+
+volumes:
+  postgres_data_push_notifications:
+
+networks:
+  arc-network:
+    driver: bridge
