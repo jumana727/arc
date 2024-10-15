@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Prometheus;
 using VPM.Application;
 
 namespace VPM
@@ -25,6 +26,9 @@ namespace VPM
             builder.Services.AddControllers();
 
             builder.Services.AddHttpClient();
+
+            // Add service monitoring
+            builder.Services.AddMetrics();
 
             builder.Services.AddCors(options =>
             {
@@ -86,6 +90,9 @@ namespace VPM
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMetricServer();
+            app.UseHttpMetrics();
 
             app.UseRouting();  // Enables routing.
             app.UseAuthorization();

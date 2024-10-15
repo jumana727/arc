@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using Authentication.Application;
+using Prometheus;
 
 namespace Authentication.API
 {
@@ -22,6 +23,9 @@ namespace Authentication.API
             builder.Services.AddControllers();
 
             builder.Services.AddHttpClient();
+
+            // Add service monitoring
+            builder.Services.AddMetrics();
 
             builder.Services.AddCors(options =>
             {
@@ -110,6 +114,9 @@ namespace Authentication.API
             app.UseSwaggerUI();
             // }
 
+            app.UseMetricServer();
+            app.UseHttpMetrics();
+            
             app.UseRouting();  // Enables routing.
             app.UseAuthorization();
 

@@ -1,5 +1,6 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,11 +37,17 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
 });
 builder.Services.AddAuthorization();
 
+// Add service monitoring
+builder.Services.AddMetrics();
+
 // Add Ocelot services
 builder.Services.AddOcelot(builder.Configuration);
 
 var app = builder.Build();
 app.UseCors("AllowAll");
+
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 // Use authentication and Ocelot middleware
 app.UseAuthentication();

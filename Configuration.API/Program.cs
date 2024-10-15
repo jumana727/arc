@@ -1,5 +1,6 @@
 using Configuration.Application;
 using Microsoft.OpenApi.Models;
+using Prometheus;
 
 namespace Configuration.API
 {
@@ -25,6 +26,9 @@ namespace Configuration.API
             builder.Services.AddControllers();
 
             builder.Services.AddHttpClient();
+
+            // Add service monitoring
+            builder.Services.AddMetrics();
 
             builder.Services.AddCors(options =>
             {
@@ -86,6 +90,9 @@ namespace Configuration.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             // }
+
+            app.UseMetricServer();
+            app.UseHttpMetrics();
 
             app.UseRouting();  // Enables routing.
             app.UseAuthorization();
