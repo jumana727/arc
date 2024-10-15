@@ -40,6 +40,9 @@ builder.Services.AddAuthorization();
 // Add service monitoring
 builder.Services.AddMetrics();
 
+// Add health check
+builder.Services.AddHealthChecks();
+
 // Add Ocelot services
 builder.Services.AddOcelot(builder.Configuration);
 
@@ -48,6 +51,8 @@ app.UseCors("AllowAll");
 
 app.UseMetricServer();
 app.UseHttpMetrics();
+
+app.UseHealthChecks("/health");
 
 // Use authentication and Ocelot middleware
 app.UseAuthentication();

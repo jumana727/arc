@@ -30,6 +30,9 @@ namespace VPM
             // Add service monitoring
             builder.Services.AddMetrics();
 
+            // Add health check
+            builder.Services.AddHealthChecks();
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -93,6 +96,8 @@ namespace VPM
 
             app.UseMetricServer();
             app.UseHttpMetrics();
+
+            app.UseHealthChecks("/health");
 
             app.UseRouting();  // Enables routing.
             app.UseAuthorization();
