@@ -33,6 +33,12 @@
 
 ## Run with Istio
 
+### Prerequisites 
+- Minikube Cluster
+- kubectl
+
+### Steps to install and run
+
 1. Download istio
     - `curl -L https://istio.io/downloadIstio | sh -`
     - `cd istio-1.23.2`
