@@ -1,0 +1,9 @@
+{
+    "service": {
+      "id": "config-api",
+      "name": "config-api",
+      "address": "192.168.80.242",
+      "port": 5011,
+      "tags": ["microservice"]
+    }
+  }

@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -21,7 +21,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -37,7 +37,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -53,7 +53,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -69,7 +69,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -85,7 +85,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -101,7 +101,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -117,7 +117,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -133,7 +133,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -149,7 +149,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -165,7 +165,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -181,7 +181,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -197,7 +197,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "config-api.service.consul",
           "Port": 5011
         }
       ],
@@ -213,7 +213,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "auth1.service.consul",
           "Port": 5174
         }
       ],
@@ -225,7 +225,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "auth1.service.consul",
           "Port": 5174
         }
       ],
@@ -302,10 +302,10 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5039",
+    "BaseUrl": "http://gateway.service.consul:5039",
     "Authentication": {
       "JwtBearer": {
-        "Authority": "http://localhost:8080/realms/myrealm",
+        "Authority": "http://keycloak.service.consul:8080/realms/myrealm",
         "Audience": "*",
         "RequireHttpsMetadata": false
       }

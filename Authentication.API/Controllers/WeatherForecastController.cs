@@ -5,7 +5,7 @@ using Authentication.API.Models;
 namespace Authentication.API.Controllers
 {
 
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

@@ -1,5 +1,5 @@
 export const API_ENDPOINTS = {
-  BASE_URL: 'http://localhost:5039',
+  BASE_URL: 'http://gateway.service.consul:5039',
   AUTH: {
     LOGIN: '/api/Auth/login',
     VALIDATE_TOKEN: '/api/Auth/validatetoken',
