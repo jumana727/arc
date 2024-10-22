@@ -20,7 +20,7 @@ RUN npm install
 COPY ArcClient ./
 
 # Build the Angular application
-RUN npm run build --configuration=${CONFIGURATION}
+RUN npm run build -- --configuration=${CONFIGURATION}
 
 # Stage 2: Serve the Angular application
 FROM nginx:alpine
