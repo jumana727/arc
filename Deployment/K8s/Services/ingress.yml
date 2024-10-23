@@ -32,6 +32,26 @@ spec:
                 name: mediamtx
                 port:
                   number: 8889   
+    - host: grafana.matrix.com
+      http:
+        paths:
+          - path: /.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 80
+    - host: prometheus.matrix.com
+      http:
+        paths:
+          - path: /.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: prometheus-server
+                port:
+                  number: 9090
     - host: matrix.keycloak
       http:
         paths:
