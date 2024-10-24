@@ -2,7 +2,7 @@
 
 #### Requires atleast 1 master and multiple worker nodes
 
-1. Initialize cluster on master node `docker swarm init --advertise-addr <MANAGER-IP>` It will print a join command 
+1. Initialize cluster on master node `docker swarm init --advertise-addr <MANAGER-IP>` It will print a join command
 
 ```
     docker swarm join \
@@ -19,14 +19,37 @@
 
 1. Create overlay network : `docker network create --driver overlay arc-network`
 
-2. Deploy Helper Services Stack : `docker stack deploy -c docker-stack.yml arc-ap`
+2. Deploy Helper Services Stack : `docker stack deploy -c docker-stack.yml arc-helper-svc`
 
-2. Deploy Microservices Stack : `docker stack deploy -c docker-stack-microservices.yml arc-ap`
+2. Deploy Microservices Stack : `docker stack deploy -c docker-stack-microservices.yml arc-micro-svc`
 
+### List Stacks
+
+```
+docker stack ls
+```
+
+
+### Remove the Stack
+
+```
+docker stack rm <stack-name>
+```
+
+### Check Service Status:
+```
+docker service ls
+```
+
+### Remove the Service
+
+```
+docker service rm <service-name>
+```
 
 #### Deploy Swarm visulaizer
 
-Run 
+Run
 ```
 docker service create \
   --name visualizer \

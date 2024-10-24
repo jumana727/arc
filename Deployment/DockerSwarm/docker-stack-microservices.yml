@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   gateway:
-    image: arc-gateway:1.0
+    image: matrix.local.registry:5000/arc-gateway:1.0-swarm
     ports:
       - "5039:8080"
     depends_on:
@@ -27,11 +27,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
 
   authentication:
-    image: arc-authentication:hls-1.0
+    image: matrix.local.registry:5000/arc-authentication:1.0-swarm
     ports:
       - "5174:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:8080
     networks:
       - arc-network
@@ -54,11 +54,11 @@ services:
 #      retries: 3
 
   configuration:
-    image: arc-configuration:hls-1.0
+    image: matrix.local.registry:5000/arc-configuration:1.0-swarm
     ports:
       - "5011:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:8080
     networks:
       - arc-network
@@ -81,11 +81,11 @@ services:
  #     retries: 3
 
   arc-webclient:
-    image: arc-webspa:hls-1.0
+    image: matrix.local.registry:5000/arc-webspa:1.0-swarm
     ports:
       - "4200:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
     networks:
       - arc-network
     deploy:
@@ -107,11 +107,11 @@ services:
  #     retries: 3
 
   vpm:
-    image: arc-vpm:hls-1.0
+    image: matrix.local.registry:5000/arc-vpm:1.0-swarm
     ports:
       - "5075:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:8080
     networks:
       - arc-network

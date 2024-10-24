@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:15
+    image: matrix.local.registry:5000/postgres:15
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
@@ -31,7 +31,7 @@ services:
 #      retries: 5
 
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
+    image: matrix.local.registry:5000/keycloak:latest
     command: ["start-dev"]
     ports:
       - "8080:8080"
@@ -39,12 +39,11 @@ services:
       - keycloak_data:/opt/keycloak/data
     environment:
       - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD_FILE=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
       - DB_VENDOR=postgres
       - DB_ADDR=postgres
       - DB_DATABASE=ConfigDb
       - DB_USER=postgres
-      - DB_PASSWORD_FILE=admin
     networks:
       - arc-network
     deploy:
