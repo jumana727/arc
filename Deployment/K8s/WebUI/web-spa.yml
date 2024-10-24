@@ -14,13 +14,21 @@ spec:
     spec:
       containers:
       - name: web-spa
-        image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0
+        image: matrix.local.registry:5000/arc-webspa:hls-1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Production"
+        resources:
+          limits:
+            cpu: "0.8"
+            memory: 500Mi
+          requests:
+            cpu: "0.4"
+            memory: 250Mi
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service
+spec:
+  selector:
+    app.kubernetes.io/name: prometheus  # Adjust if you have different labels
+  ports:
+    - protocol: TCP
+      port: 9090           # Port for the Prometheus web UI
+      targetPort: 9090     # Target port for the Prometheus server
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-service
+spec:
+  selector:
+    app.kubernetes.io/name: grafana  # Adjust if you have different labels
+  ports:
+    - protocol: TCP
+      port: 80             # Port for accessing Grafana
+      targetPort: 3000     # Target port for the Grafana server
+  type: ClusterIP
+

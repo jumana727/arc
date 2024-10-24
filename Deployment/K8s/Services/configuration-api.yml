@@ -14,13 +14,21 @@ spec:
     spec:
       containers:
       - name: configuration-api
-        image: phadkesharanmatrixcomsec/arc-configuration:hls-1.0
+        image: matrix.local.registry:5000/arc-configuration:1.0-swarm
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Production"
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1000Mi
+          requests:
+            cpu: "0.5"
+            memory: 500Mi
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
