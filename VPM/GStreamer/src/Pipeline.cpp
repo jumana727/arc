@@ -122,6 +122,12 @@ void CMx_Pipeline::InitPipeline(int ipipelineID, const char * rtspURL)
 		{
 			mediaMtxIP = "mediamtx.default.svc.cluster.local";
 		}
+
+		else if(std::string(env_var) == "Local")
+		{
+			mediaMtxIP = "mediamtx.service.custom.local";
+		}
+
 	}
 	
 
