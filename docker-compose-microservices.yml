@@ -1,0 +1,68 @@
+services:
+  gateway:
+    image: phadkesharanmatrixcomsec/arc-gateway:1.0
+    build:
+      context: .
+      dockerfile: Arc.Gateway/Dockerfile
+    ports:
+      - "5039:8080"
+    depends_on:
+      - authentication
+      - configuration
+      - vpm
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+
+  authentication:
+    image: phadkesharanmatrixcomsec/arc-authentication:hls-1.0
+    build:
+      context: .
+      dockerfile: Authentication.API/Dockerfile
+    ports:
+      - "5174:8080"
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+  configuration:
+    image: phadkesharanmatrixcomsec/arc-configuration:hls-1.0
+    build:
+      context: . 
+      dockerfile: Configuration.API/Dockerfile
+    ports:
+      - "5011:8080"
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+  arc-webclient:
+    image: phadkesharanmatrixcomsec/arc-webspa:hls-1.0
+    build:
+      context: .
+      dockerfile: ./ArcClient/Dockerfile
+    ports:
+      - "4200:80"
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+  vpm:
+    image: phadkesharanmatrixcomsec/arc-vpm:hls-1.0
+    build:
+      context: . 
+      dockerfile: VPM/Dockerfile
+    ports:
+      - "5075:8080"
+    networks:
+      - arc-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+networks:
+  arc-network:
+    driver: bridge

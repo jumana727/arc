@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configuration-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configuration-api
+  template:
+    metadata:
+      labels:
+        app: configuration-api
+    spec:
+      containers:
+      - name: configuration-api
+        image: phadkesharanmatrixcomsec/arc-configuration:hls-1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: configuration-api-service
+spec:
+  selector:
+    app: configuration-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+

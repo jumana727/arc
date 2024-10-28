@@ -1,0 +1,314 @@
+{
+    "Routes": [
+      {
+        "DownstreamPathTemplate": "/api/Component/get/byDevice",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Component/get/byDevice",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Component/get/byComponent",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Component/get/byComponent",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Component/addUpdateComponent",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Component/addUpdateComponent",
+        "UpstreamHttpMethod": [ "POST" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Component/deleteComponent",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Component/deleteComponent",
+        "UpstreamHttpMethod": [ "DELETE" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Component/getStreamProfiles/byComponent",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Component/getStreamProfiles/byComponent",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Component/getStreamProfile/byComponent",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Component/getStreamProfile/byComponent",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Component/addUpdateStreamProfile",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Component/addUpdateStreamProfile",
+        "UpstreamHttpMethod": [ "POST" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Component/deleteStreamProfile",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Component/deleteStreamProfile",
+        "UpstreamHttpMethod": [ "DELETE" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Device/devicecomponent",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Device/devicecomponent",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Device/get",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Device/get",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Device/add",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Device/add",
+        "UpstreamHttpMethod": [ "POST" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Device/update",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Device/update",
+        "UpstreamHttpMethod": [ "POST" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Device/delete",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "configuration",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Device/delete",
+        "UpstreamHttpMethod": [ "DELETE" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Auth/login",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "authentication",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Auth/login",
+        "UpstreamHttpMethod": [ "POST" ]
+      },
+      {
+        "DownstreamPathTemplate": "/api/Auth/validatetoken",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "authentication",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Auth/validatetoken",
+        "UpstreamHttpMethod": [ "GET" ],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Stream/getstreamurl",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "vpm",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Stream/getstreamurl",
+        "UpstreamHttpMethod": ["GET"],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Stream/playstream",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "vpm",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Stream/playstream",
+        "UpstreamHttpMethod": ["GET"],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Stream/pausestream",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "vpm",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Stream/pausestream",
+        "UpstreamHttpMethod": ["GET"],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      },
+      {
+        "DownstreamPathTemplate": "/api/Stream/stopstream",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "vpm",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/api/Stream/stopstream",
+        "UpstreamHttpMethod": ["GET"],
+        "AuthenticationOptions": {
+          "AuthenticationProviderKey": "Bearer",
+          "AllowedScopes": []
+        }
+      }
+    ],
+    "GlobalConfiguration": {
+      "BaseUrl": "http://gateway:5039",
+      "Authentication": {
+        "JwtBearer": {
+          "Authority": "http://keycloak:8080/realms/myrealm",
+          "Audience": "*",
+          "RequireHttpsMetadata": false
+        }
+      }
+    }
+  }

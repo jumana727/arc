@@ -1,0 +1,11 @@
+{
+    "service": {
+        "id": "keycloak",
+        "name": "keycloak",
+        "address": "192.168.27.172",
+        "port": 8081,
+        "tags": [
+            "microservice"
+        ]
+    }
+}

@@ -1,0 +1,132 @@
+{
+  "realm": "myrealm",
+  "users": [
+    {
+      "id": "5a541b1f-bf8a-42db-8f43-a54e45a57b05",
+      "username": "adminuser",
+      "firstName": "admin",
+      "lastName": "user",
+      "email": "adminuser@gmail.com",
+      "emailVerified": false,
+      "createdTimestamp": 1721969176575,
+      "enabled": true,
+      "totp": false,
+      "credentials": [
+        {
+          "id": "1d53850a-e3ee-447a-90bf-84bfe44b0928",
+          "type": "password",
+          "userLabel": "My password",
+          "createdDate": 1721969192789,
+          "secretData": "{\"value\":\"kYr949soirszgZ4jSVomddxgxy9N6o8J2cokGb5Pkss=\",\"salt\":\"6yQa346Dw7LoqlZlUYX6BA==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-myrealm"
+      ],
+      "clientRoles": {
+        "myclient": [
+          "admin"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "1faaae0d-c78c-4b2d-b01f-ffada69205ff",
+      "username": "anonusr",
+      "firstName": "anonusr",
+      "lastName": "anonusr",
+      "email": "anonusr@gmail.com",
+      "emailVerified": false,
+      "createdTimestamp": 1721971669426,
+      "enabled": true,
+      "totp": false,
+      "credentials": [
+        {
+          "id": "73666ff2-9320-4e68-9745-a716f7fbd487",
+          "type": "password",
+          "userLabel": "My password",
+          "createdDate": 1721971688426,
+          "secretData": "{\"value\":\"Y5SNjNJahkAmeCO+f8FjojarP99+U0Wkp7aojCktDVI=\",\"salt\":\"Et+WiwKhnfVWDvOW1T9BqQ==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-myrealm"
+      ],
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "d6c8c80c-f29d-4fa0-a29b-efad45d95cfd",
+      "username": "moderatorusr",
+      "firstName": "moderatorusr",
+      "lastName": "moderatorusr",
+      "email": "mod@gmail.com",
+      "emailVerified": false,
+      "createdTimestamp": 1721971575336,
+      "enabled": true,
+      "totp": false,
+      "credentials": [
+        {
+          "id": "6e1487c0-9e51-4273-8700-b532b5281d12",
+          "type": "password",
+          "userLabel": "My password",
+          "createdDate": 1721971709076,
+          "secretData": "{\"value\":\"QZH/OXApQN5v6MmjTQMxuPF9fgeomc5pPvEKQv/STTk=\",\"salt\":\"EAOpBD1e+UcJZG7p3mBm2g==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-myrealm"
+      ],
+      "clientRoles": {
+        "myclient": [
+          "moderator"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "60eef9ce-8f5c-49a5-81b7-4f6838b0c408",
+      "username": "myuser",
+      "firstName": "my",
+      "lastName": "user",
+      "email": "myuser@mymail.com",
+      "emailVerified": false,
+      "createdTimestamp": 1721624343623,
+      "enabled": true,
+      "totp": false,
+      "credentials": [
+        {
+          "id": "82efa757-dd7c-43d3-9e67-d573868e924c",
+          "type": "password",
+          "userLabel": "My password",
+          "createdDate": 1721624358265,
+          "secretData": "{\"value\":\"NKUNqaYvGLEdIhHe2k5/BpYKFRQOuuBvX1c7P+wQuOM=\",\"salt\":\"MuvT4flsM+750tAX4zw0xw==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":5,\"algorithm\":\"argon2\",\"additionalParameters\":{\"hashLength\":[\"32\"],\"memory\":[\"7168\"],\"type\":[\"id\"],\"version\":[\"1.3\"],\"parallelism\":[\"1\"]}}"
+        }
+      ],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-myrealm"
+      ],
+      "clientRoles": {
+        "myclient": [
+          "general"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    }
+  ]
+}

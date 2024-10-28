@@ -1,0 +1,72 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:4200"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization, Content-Type"
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: hls-streams
+      http:
+        paths:
+          - path: /.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: mediamtx
+                port:
+                  number: 8888 
+    - host: webrtc-streams
+      http:
+        paths:
+          - path: /.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: mediamtx
+                port:
+                  number: 8889   
+    - host: matrix.keycloak
+      http:
+        paths:
+          - path: /.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: web-spa-service
+                port:
+                  number: 80
+          - path: /api/device/.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: configuration-api-service
+                port:
+                  number: 80
+          - path: /api/component/.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: configuration-api-service
+                port:
+                  number: 80                  
+          - path: /api/auth/.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: authentication-api-service
+                port:
+                  number: 80                    
+          - path: /api/Stream/.*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: vpm-api-service
+                port:
+                  number: 80 
