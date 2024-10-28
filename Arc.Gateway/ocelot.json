@@ -242,7 +242,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5075
+          "Port": 5078
         }
       ],
       "UpstreamPathTemplate": "/api/Stream/getstreamurl",
@@ -258,7 +258,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5075
+          "Port": 5078
         }
       ],
       "UpstreamPathTemplate": "/api/Stream/playstream",
@@ -274,7 +274,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5075
+          "Port": 5078
         }
       ],
       "UpstreamPathTemplate": "/api/Stream/pausestream",
@@ -290,7 +290,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5075
+          "Port": 5078
         }
       ],
       "UpstreamPathTemplate": "/api/Stream/stopstream",

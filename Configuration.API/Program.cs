@@ -77,17 +77,9 @@ namespace Configuration.API
 
         private static void ConfigureMiddleware(WebApplication app)
         {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
             app.UseCors("AllowAll");
-            // if (app.Environment.IsDevelopment())
-            // {
             app.UseSwagger();
             app.UseSwaggerUI();
-            // }
 
             app.UseRouting();  // Enables routing.
             app.UseAuthorization();
