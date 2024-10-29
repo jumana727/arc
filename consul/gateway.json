@@ -3,6 +3,18 @@
       "id": "gateway",
       "name": "gateway",
       "port": 5039,
+      "connect": {
+        "sidecar_service": {
+          "proxy" : {
+            "upstreams" : [
+              {
+                "destination_name" : "auth1",
+                "local_bind_port" : 5174
+              }
+            ]
+          }
+        }
+      },
       "tags": ["microservice"]
     }
   }

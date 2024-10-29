@@ -26,4 +26,4 @@ export const API_ENDPOINTS = {
     },
     HLS_BASE_URL : 'hls-streams:4200',
     MEDIAMTX_URL : 'mediamtx.default.svc.cluster.local'
-  };
+};
